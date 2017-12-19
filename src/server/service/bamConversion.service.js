@@ -2,15 +2,14 @@
 
 import path from 'path';
 import { Observable } from 'rxjs';
-import { fromScript } from './util/scriptUtil';
+import { runScript } from './util/script.util';
 
 import type { Script, BamConversionPayload, Observable as ObservableType } from '../flowType/type';
 
 export default function conversion(data: BamConversionPayload): ObservableType {
   const script = createScript(data);
   return Observable.of({ progress: 0 })
-    .concat(fromScript(script)
-      .map(info => Object({ info })))
+    .concat(runScript(script))
     .concat(Observable.of({ progress: 100 }));
 }
 

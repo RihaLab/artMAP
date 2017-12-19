@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { routerReducer as routing } from 'react-router-redux';
+import { routerReducer as router } from 'react-router-redux';
 import { reducer as form } from 'redux-form';
 
 import bamConversions from './bamConversion.reducer';
@@ -25,7 +25,7 @@ const rootReducer = combineReducers({
   filtration,
   alerts,
   form,
-  routing,
+  router,
 });
 
 export default rootReducer;

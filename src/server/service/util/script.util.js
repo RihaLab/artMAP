@@ -55,14 +55,20 @@ export function execScript(script: string): ObservableType {
 
 function runScriptToFile(script: Script): ObservableType {
   return Observable.create((observer) => {
-    const output = { script };
+    const {
+      output,
+      command,
+      params,
+      cwd,
+    } = script;
+
     if (output) {
       const outputFileWriteStream = createWriteStream(output);
-      const infoMsg = `Running script: ${script.command} ${script.params.join(' ')} > ${output}${script.cwd ? `from ${script.cwd}` : ''}`;
+      const infoMsg = `Running script: ${command} ${params.join(' ')} > ${output}${cwd ? `from ${cwd}` : ''}`;
       logger(infoMsg);
       observer.next(infoMsg);
       outputFileWriteStream.on('open', () => {
-        const process = spawn(script.command, script.params, { cwd: script.cwd });
+        const process = spawn(command, params, { cwd });
         process.stdout.pipe(outputFileWriteStream);
         process.stderr.on('data', data => observer.next(data.toString()));
         process.on('error', err => observer.error(err));

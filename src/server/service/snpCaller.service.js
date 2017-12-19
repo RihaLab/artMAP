@@ -2,7 +2,7 @@
 
 import path from 'path';
 import { Observable } from 'rxjs';
-import { execScript } from './util/scriptUtil';
+import { execScript } from './util/script.util';
 
 import type { SnpCallerPayload, Observable as ObservableType } from '../flowType/type';
 

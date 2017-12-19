@@ -6,6 +6,8 @@
  * @flow
  */
 
+import type { Observable as ObservableType } from 'rxjs';
+
 export type Script = {
   command: string,
   params: Array<string>,
@@ -28,7 +30,7 @@ export type SamConversionPayload = OperationPayload & SamConversionAddition
 export type SnpCallerPayload = OperationPayload
 export type PipelinePayload = SubtractionPayload & PipelineAddition
 export type SnpFiltrationPayload = OperationPayload
-export type Observable = any
+export type Observable = ObservableType<*>
 
 export type AnnotationPayload = {
   inputFile: string,

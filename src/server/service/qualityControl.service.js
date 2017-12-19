@@ -3,7 +3,7 @@
 import path from 'path';
 import { rename } from 'fs';
 import { Observable } from 'rxjs';
-import { fromScript } from './util/scriptUtil';
+import { fromScript } from './util/script.util';
 
 import type { Observable as ObservableType, QualityControlPayload, Script } from '../flowType/type';
 

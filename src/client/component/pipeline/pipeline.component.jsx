@@ -1,2 +1,2 @@
-export PipelineForm from './form/pipelineForm';
-export PipelineChart from './chart/barChart';
+export { default as PipelineForm } from './form/pipelineForm';
+export { default as PipelineChart } from './chart/barChart';

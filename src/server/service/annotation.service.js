@@ -5,7 +5,7 @@ import createLogger from 'debug';
 import { rename } from 'fs';
 import { Observable } from 'rxjs';
 import progressObservable from './util/observable.util';
-import { runScript } from './util/scriptUtil';
+import { runScript } from './util/script.util';
 
 import type { Script, AnnotationPayload, Observable as ObservableType } from '../flowType/type';
 
@@ -14,9 +14,9 @@ const pathToSnpEff = process.env.SNP_EFF;
 const logger = createLogger('dna:service:annotation');
 
 export default function annotation(data: AnnotationPayload): ObservableType {
-  if (!pathToSnpEff) {
-    logger('\'SNP_EFF\' is not in set');
-    return Observable.throw(new Error('Environment variable \'SNP_EFF\' is not set'));
+  if (typeof pathToSnpEff !== 'string') {
+    logger('\'SNP_EFF\' is not in set or is invalid');
+    return Observable.throw(new Error('Environment variable \'SNP_EFF\' is not in set or is invalid'));
   }
   const script = createScript(data);
   return progressObservable(0)
@@ -35,7 +35,10 @@ function createScript(data: AnnotationPayload): Script {
     ext: '.txt',
   });
 
-  const mandatoryParams = ['-Xmx4g', '-jar', pathToSnpEff, referenceGenomeName, data.inputFile];
+  if (typeof pathToSnpEff !== 'string') {
+    throw new Error('Path to SNP_EFF must be a string');
+  }
+  const mandatoryParams = [pathToSnpEff, referenceGenomeName, data.inputFile];
   return {
     command, params: mandatoryParams, output, cwd: data.outputDirectory,
   };

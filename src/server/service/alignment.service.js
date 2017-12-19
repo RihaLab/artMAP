@@ -3,7 +3,7 @@
 import path from 'path';
 import tmp from 'tmp';
 import { Observable } from 'rxjs';
-import { fromScript } from './util/scriptUtil';
+import { fromScript } from './util/script.util';
 
 import type { AlignmentPayload, Observable as ObservableType, Script } from '../flowType/type';
 
@@ -27,8 +27,8 @@ function singleEndSmallBP(data: AlignmentPayload): ObservableType {
   const tmpObj = tmp.dirSync({ unsafeCleanup: true, dir: data.outputDirectory });
   const outputFile = path.join(data.outputDirectory, data.outputFilename);
   const alnTmpFile = path.join(tmpObj.name, 'alignment-tmp-file');
-  const alnScript = createAlnScript(data.inputFile, alnTmpFile, data.alnParams);
-  const samseScript = createSamseScript(data.inputFile, alnTmpFile, outputFile, data.samseParams);
+  const alnScript = createAlnScript(data.inputFile, alnTmpFile);
+  const samseScript = createSamseScript(data.inputFile, alnTmpFile, outputFile);
 
   return fromScript(alnScript)
     .map(info => Object({ info }))
@@ -53,11 +53,11 @@ function pairedEndSmallBP(data: AlignmentPayload): ObservableType {
   const outputFile = path.join(data.outputDirectory, data.outputFilename);
   const alnTmpFile = path.join(tmpObj.name, 'alignment-tmp');
   const alnTmpPairEndFile = path.join(tmpObj.name, 'alignment-tmp-pair-end');
-  const alnScript1 = createAlnScript(data.inputFile, alnTmpFile, data.alnParams);
-  const alnScript2 = createAlnScript(pairedInputFile, alnTmpPairEndFile, data.alnParams);
+  const alnScript1 = createAlnScript(data.inputFile, alnTmpFile);
+  const alnScript2 = createAlnScript(pairedInputFile, alnTmpPairEndFile);
   // todo refactor
   // eslint-disable-next-line max-len
-  const sampeScript = createSampeScript(data.inputFile, pairedInputFile, alnTmpFile, alnTmpPairEndFile, outputFile, data.sampeParams);
+  const sampeScript = createSampeScript(data.inputFile, pairedInputFile, alnTmpFile, alnTmpPairEndFile, outputFile);
 
   return fromScript(alnScript1)
     .merge(fromScript(alnScript2))

@@ -13,7 +13,7 @@ import subtraction from './subtraction.service';
 import snpFiltration from './snpFiltration.service';
 import annotation from './annotation.service';
 import visualization from './visualization.service';
-import names from './constants';
+import { filenames } from '../config';
 
 import type { Observable as ObservableType, PipelinePayload } from '../flowType/type';
 
@@ -61,8 +61,8 @@ function createMutatedFileBamConversionStep(data: PipelinePayload): ObservableTy
 function createBamConversionStep(data: PipelinePayload, isControlFile?: boolean): ObservableType {
   const modification = {
     inputFile: isControlFile ? data.controlFile : data.mutatedFile,
-    outputFilename: isControlFile ? names.bamConversion.controlFileOutput : names.bamConversion.mutatedFileOutput,
-    secondNameOutputFilename: isControlFile ? names.bamConversion.controlFileSEOutput : names.bamConversion.mutatedFileSEOutput,
+    outputFilename: isControlFile ? filenames.bamConversion.controlFileOutput : filenames.bamConversion.mutatedFileOutput,
+    secondNameOutputFilename: isControlFile ? filenames.bamConversion.controlFileSEOutput : filenames.bamConversion.mutatedFileSEOutput,
   };
   const payload = Object.assign({}, data, modification);
   return bamConversion(payload);
@@ -102,18 +102,18 @@ function createQualityControlStep(data: PipelinePayload, isControlFile?: boolean
   const modification = {};
   if (isControlFile) {
     if (isSecondEnd) {
-      modification.inputFile = data.skipBamConversion ? data.controlFileSE : path.join(data.outputDirectory, names.bamConversion.controlFileSEOutput);
-      modification.outputFilename = names.qualityControl.controlFileSEOutput;
+      modification.inputFile = data.skipBamConversion ? data.controlFileSE : path.join(data.outputDirectory, filenames.bamConversion.controlFileSEOutput);
+      modification.outputFilename = filenames.qualityControl.controlFileSEOutput;
     } else {
-      modification.inputFile = data.skipBamConversion ? data.controlFile : path.join(data.outputDirectory, names.bamConversion.controlFileOutput);
-      modification.outputFilename = names.qualityControl.controlFileOutput;
+      modification.inputFile = data.skipBamConversion ? data.controlFile : path.join(data.outputDirectory, filenames.bamConversion.controlFileOutput);
+      modification.outputFilename = filenames.qualityControl.controlFileOutput;
     }
   } else if (isSecondEnd) {
-    modification.inputFile = data.skipBamConversion ? data.mutatedFileSE : path.join(data.outputDirectory, names.bamConversion.mutatedFileSEOutput);
-    modification.outputFilename = names.qualityControl.mutatedFileSEOutput;
+    modification.inputFile = data.skipBamConversion ? data.mutatedFileSE : path.join(data.outputDirectory, filenames.bamConversion.mutatedFileSEOutput);
+    modification.outputFilename = filenames.qualityControl.mutatedFileSEOutput;
   } else {
-    modification.inputFile = data.skipBamConversion ? data.mutatedFile : path.join(data.outputDirectory, names.bamConversion.mutatedFileOutput);
-    modification.outputFilename = names.qualityControl.mutatedFileOutput;
+    modification.inputFile = data.skipBamConversion ? data.mutatedFile : path.join(data.outputDirectory, filenames.bamConversion.mutatedFileOutput);
+    modification.outputFilename = filenames.qualityControl.mutatedFileOutput;
   }
   const payload = Object.assign({}, data, modification);
   return qualityControl(payload);
@@ -136,25 +136,25 @@ function createAlignmentStep(data: PipelinePayload, isControlFile?: boolean): Ob
       modification.inputFile = data.controlFile;
       modification.pairedInputFile = data.controlFileSE;
     } else if (data.skipQualityControl && !data.skipBamConversion) {
-      modification.inputFile = path.join(data.outputDirectory, names.bamConversion.controlFileOutput);
-      modification.pairedInputFile = path.join(data.outputDirectory, names.bamConversion.controlFileSEOutput);
+      modification.inputFile = path.join(data.outputDirectory, filenames.bamConversion.controlFileOutput);
+      modification.pairedInputFile = path.join(data.outputDirectory, filenames.bamConversion.controlFileSEOutput);
     } else {
-      modification.inputFile = path.join(data.outputDirectory, names.qualityControl.controlFileOutput);
-      modification.pairedInputFile = path.join(data.outputDirectory, names.qualityControl.controlFileSEOutput);
+      modification.inputFile = path.join(data.outputDirectory, filenames.qualityControl.controlFileOutput);
+      modification.pairedInputFile = path.join(data.outputDirectory, filenames.qualityControl.controlFileSEOutput);
     }
-    modification.outputFilename = names.alignment.controlFileOutput;
+    modification.outputFilename = filenames.alignment.controlFileOutput;
   } else {
     if (data.skipQualityControl && data.skipBamConversion) {
       modification.inputFile = data.mutatedFile;
       modification.pairedInputFile = data.mutatedFileSE;
     } else if (data.skipQualityControl && !data.skipBamConversion) {
-      modification.inputFile = path.join(data.outputDirectory, names.bamConversion.mutatedFileOutput);
-      modification.pairedInputFile = path.join(data.outputDirectory, names.bamConversion.mutatedFileSEOutput);
+      modification.inputFile = path.join(data.outputDirectory, filenames.bamConversion.mutatedFileOutput);
+      modification.pairedInputFile = path.join(data.outputDirectory, filenames.bamConversion.mutatedFileSEOutput);
     } else {
-      modification.inputFile = path.join(data.outputDirectory, names.qualityControl.mutatedFileOutput);
-      modification.pairedInputFile = path.join(data.outputDirectory, names.qualityControl.mutatedFileSEOutput);
+      modification.inputFile = path.join(data.outputDirectory, filenames.qualityControl.mutatedFileOutput);
+      modification.pairedInputFile = path.join(data.outputDirectory, filenames.qualityControl.mutatedFileSEOutput);
     }
-    modification.outputFilename = names.alignment.mutatedFileOutput;
+    modification.outputFilename = filenames.alignment.mutatedFileOutput;
   }
   const payload = Object.assign({}, {
     memParams: {}, alnParams: {}, samseParams: {}, sampeParams: {},
@@ -174,8 +174,8 @@ function createMutatedFileSamConversionStep(data: PipelinePayload): ObservableTy
 
 function createSamConversionStep(data: PipelinePayload, isControlFile?: boolean): ObservableType {
   const modification = {
-    inputFile: path.join(data.outputDirectory, isControlFile ? names.alignment.controlFileOutput : names.alignment.mutatedFileOutput),
-    outputFilename: isControlFile ? names.samConversion.controlFileOutput : names.samConversion.mutatedFileOutput,
+    inputFile: path.join(data.outputDirectory, isControlFile ? filenames.alignment.controlFileOutput : filenames.alignment.mutatedFileOutput),
+    outputFilename: isControlFile ? filenames.samConversion.controlFileOutput : filenames.samConversion.mutatedFileOutput,
   };
   const payload = Object.assign({}, { viewParams: {}, sortParams: {} }, data, modification);
   return samConversion(payload);
@@ -193,8 +193,8 @@ function createMutatedFileSnpCallerStep(data: PipelinePayload): ObservableType {
 
 function createSnpCallerStep(data: PipelinePayload, isControlFile?: boolean): ObservableType {
   const modification = {
-    inputFile: path.join(data.outputDirectory, isControlFile ? names.samConversion.controlFileOutput : names.samConversion.mutatedFileOutput),
-    outputFilename: isControlFile ? names.snpCaller.controlFileOutput : names.snpCaller.mutatedFileOutput,
+    inputFile: path.join(data.outputDirectory, isControlFile ? filenames.samConversion.controlFileOutput : filenames.samConversion.mutatedFileOutput),
+    outputFilename: isControlFile ? filenames.snpCaller.controlFileOutput : filenames.snpCaller.mutatedFileOutput,
   };
   const payload = Object.assign({}, data, modification);
   return snpCaller(payload);
@@ -202,9 +202,9 @@ function createSnpCallerStep(data: PipelinePayload, isControlFile?: boolean): Ob
 
 function createSubtractionStep(data: PipelinePayload): ObservableType {
   const modification = {
-    controlFile: path.join(data.outputDirectory, names.snpCaller.controlFileOutput),
-    mutatedFile: path.join(data.outputDirectory, names.snpCaller.mutatedFileOutput),
-    outputFilename: names.subtraction.output,
+    controlFile: path.join(data.outputDirectory, filenames.snpCaller.controlFileOutput),
+    mutatedFile: path.join(data.outputDirectory, filenames.snpCaller.mutatedFileOutput),
+    outputFilename: filenames.subtraction.output,
   };
   const payload = Object.assign({}, data, modification);
   return subtraction(payload)
@@ -213,8 +213,8 @@ function createSubtractionStep(data: PipelinePayload): ObservableType {
 
 function createSnpFiltrationStep(data: PipelinePayload): ObservableType {
   const modification = {
-    inputFile: path.join(data.outputDirectory, names.subtraction.output),
-    outputFilename: names.snpFiltration.output,
+    inputFile: path.join(data.outputDirectory, filenames.subtraction.output),
+    outputFilename: filenames.snpFiltration.output,
   };
   const payload = Object.assign({}, data, modification);
   return snpFiltration(payload)
@@ -223,7 +223,7 @@ function createSnpFiltrationStep(data: PipelinePayload): ObservableType {
 
 function createAnnotationStep(data: PipelinePayload): ObservableType {
   const modification = {
-    inputFile: path.join(data.outputDirectory, names.snpFiltration.output),
+    inputFile: path.join(data.outputDirectory, filenames.snpFiltration.output),
   };
   const payload = Object.assign({}, data, modification);
   return annotation(payload)

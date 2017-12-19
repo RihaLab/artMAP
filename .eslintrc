@@ -3,6 +3,7 @@
   "plugins": ["flowtype"],
   "parser": "babel-eslint",
   "rules": {
-    "no-use-before-define": "off"
+    "no-use-before-define": "off",
+    "import/first": "off"
   }
 }

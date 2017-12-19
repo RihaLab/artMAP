@@ -13,7 +13,7 @@ const s = require('../../../src/server/service/bamConversion.service');
 
 const service = require('../../../src/server/service/pipelineService');
 const path = require('path');
-const names = require('../../../src/server/service/constants').pipeline;
+const names = require('../../../src/server/service/filenameConstants').pipeline;
 
 describe('dummy', () => {
   test('dummy', () => {
@@ -28,18 +28,18 @@ describe('dummy', () => {
 //         test('simple script', done => {
 //           const inputData = Object.assign({}, sampleData, { skipQualityControl: true });
 //
-//           const controlFileBamConversionOutput = path.join(inputData.outputDirectory, names.bamConversion.controlFileOutput);
-//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.controlFileOutput);
-//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.controlFileOutput);
-//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.controlFileOutput);
+//           const controlFileBamConversionOutput = path.join(inputData.outputDirectory, filenames.bamConversion.controlFileOutput);
+//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.controlFileOutput);
+//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.controlFileOutput);
+//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.controlFileOutput);
 //
-//           const mutatedFileBamConversionOutput = path.join(inputData.outputDirectory, names.bamConversion.mutatedFileOutput);
-//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.mutatedFileOutput);
-//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.mutatedFileOutput);
-//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.mutatedFileOutput);
+//           const mutatedFileBamConversionOutput = path.join(inputData.outputDirectory, filenames.bamConversion.mutatedFileOutput);
+//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.mutatedFileOutput);
+//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.mutatedFileOutput);
+//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.mutatedFileOutput);
 //
-//           const subtractionOutput = path.join(inputData.outputDirectory, names.subtraction.output);
-//           const snpFiltrationOutput = path.join(inputData.outputDirectory, names.snpFiltration.output);
+//           const subtractionOutput = path.join(inputData.outputDirectory, filenames.subtraction.output);
+//           const snpFiltrationOutput = path.join(inputData.outputDirectory, filenames.snpFiltration.output);
 //           const outputFile = path.join(inputData.outputDirectory, inputData.outputFilename);
 //
 //           const messages = [
@@ -105,18 +105,18 @@ describe('dummy', () => {
 //         test('more than 70 bp script', done => {
 //           const inputData = Object.assign({}, sampleData, { skipQualityControl: true, bigBP: true });
 //
-//           const controlFileBamConversionOutput = path.join(inputData.outputDirectory, names.bamConversion.controlFileOutput);
-//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.controlFileOutput);
-//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.controlFileOutput);
-//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.controlFileOutput);
+//           const controlFileBamConversionOutput = path.join(inputData.outputDirectory, filenames.bamConversion.controlFileOutput);
+//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.controlFileOutput);
+//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.controlFileOutput);
+//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.controlFileOutput);
 //
-//           const mutatedFileBamConversionOutput = path.join(inputData.outputDirectory, names.bamConversion.mutatedFileOutput);
-//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.mutatedFileOutput);
-//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.mutatedFileOutput);
-//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.mutatedFileOutput);
+//           const mutatedFileBamConversionOutput = path.join(inputData.outputDirectory, filenames.bamConversion.mutatedFileOutput);
+//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.mutatedFileOutput);
+//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.mutatedFileOutput);
+//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.mutatedFileOutput);
 //
-//           const subtractionOutput = path.join(inputData.outputDirectory, names.subtraction.output);
-//           const snpFiltrationOutput = path.join(inputData.outputDirectory, names.snpFiltration.output);
+//           const subtractionOutput = path.join(inputData.outputDirectory, filenames.subtraction.output);
+//           const snpFiltrationOutput = path.join(inputData.outputDirectory, filenames.snpFiltration.output);
 //           const outputFile = path.join(inputData.outputDirectory, inputData.outputFilename);
 //
 //           const messages = [
@@ -183,20 +183,20 @@ describe('dummy', () => {
 //         test('simple script', done => {
 //           const inputData = sampleData;
 //
-//           const controlFileBamConversionOutput = path.join(inputData.outputDirectory, names.bamConversion.controlFileOutput);
-//           const controlFileQualityControlOutput = path.join(inputData.outputDirectory, names.qualityControl.controlFileOutput);
-//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.controlFileOutput);
-//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.controlFileOutput);
-//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.controlFileOutput);
+//           const controlFileBamConversionOutput = path.join(inputData.outputDirectory, filenames.bamConversion.controlFileOutput);
+//           const controlFileQualityControlOutput = path.join(inputData.outputDirectory, filenames.qualityControl.controlFileOutput);
+//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.controlFileOutput);
+//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.controlFileOutput);
+//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.controlFileOutput);
 //
-//           const mutatedFileBamConversionOutput = path.join(inputData.outputDirectory, names.bamConversion.mutatedFileOutput);
-//           const mutatedFileQualityControlOutput = path.join(inputData.outputDirectory, names.qualityControl.mutatedFileOutput);
-//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.mutatedFileOutput);
-//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.mutatedFileOutput);
-//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.mutatedFileOutput);
+//           const mutatedFileBamConversionOutput = path.join(inputData.outputDirectory, filenames.bamConversion.mutatedFileOutput);
+//           const mutatedFileQualityControlOutput = path.join(inputData.outputDirectory, filenames.qualityControl.mutatedFileOutput);
+//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.mutatedFileOutput);
+//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.mutatedFileOutput);
+//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.mutatedFileOutput);
 //
-//           const subtractionOutput = path.join(inputData.outputDirectory, names.subtraction.output);
-//           const snpFiltrationOutput = path.join(inputData.outputDirectory, names.snpFiltration.output);
+//           const subtractionOutput = path.join(inputData.outputDirectory, filenames.subtraction.output);
+//           const snpFiltrationOutput = path.join(inputData.outputDirectory, filenames.snpFiltration.output);
 //           const outputFile = path.join(inputData.outputDirectory, inputData.outputFilename);
 //
 //           const messages = [
@@ -269,20 +269,20 @@ describe('dummy', () => {
 //         test('more than 70 bp script', done => {
 //           const inputData = Object.assign({}, sampleData, { bigBP: true });
 //
-//           const controlFileBamConversionOutput = path.join(inputData.outputDirectory, names.bamConversion.controlFileOutput);
-//           const controlFileQualityControlOutput = path.join(inputData.outputDirectory, names.qualityControl.controlFileOutput);
-//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.controlFileOutput);
-//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.controlFileOutput);
-//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.controlFileOutput);
+//           const controlFileBamConversionOutput = path.join(inputData.outputDirectory, filenames.bamConversion.controlFileOutput);
+//           const controlFileQualityControlOutput = path.join(inputData.outputDirectory, filenames.qualityControl.controlFileOutput);
+//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.controlFileOutput);
+//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.controlFileOutput);
+//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.controlFileOutput);
 //
-//           const mutatedFileBamConversionOutput = path.join(inputData.outputDirectory, names.bamConversion.mutatedFileOutput);
-//           const mutatedFileQualityControlOutput = path.join(inputData.outputDirectory, names.qualityControl.mutatedFileOutput);
-//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.mutatedFileOutput);
-//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.mutatedFileOutput);
-//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.mutatedFileOutput);
+//           const mutatedFileBamConversionOutput = path.join(inputData.outputDirectory, filenames.bamConversion.mutatedFileOutput);
+//           const mutatedFileQualityControlOutput = path.join(inputData.outputDirectory, filenames.qualityControl.mutatedFileOutput);
+//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.mutatedFileOutput);
+//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.mutatedFileOutput);
+//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.mutatedFileOutput);
 //
-//           const subtractionOutput = path.join(inputData.outputDirectory, names.subtraction.output);
-//           const snpFiltrationOutput = path.join(inputData.outputDirectory, names.snpFiltration.output);
+//           const subtractionOutput = path.join(inputData.outputDirectory, filenames.subtraction.output);
+//           const snpFiltrationOutput = path.join(inputData.outputDirectory, filenames.snpFiltration.output);
 //           const outputFile = path.join(inputData.outputDirectory, inputData.outputFilename);
 //
 //           const messages = [
@@ -360,16 +360,16 @@ describe('dummy', () => {
 //         test('simple script', done => {
 //           const inputData = Object.assign({}, sampleData, { skipBamConversion: true, skipQualityControl: true });
 //
-//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.controlFileOutput);
-//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.controlFileOutput);
-//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.controlFileOutput);
+//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.controlFileOutput);
+//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.controlFileOutput);
+//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.controlFileOutput);
 //
-//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.mutatedFileOutput);
-//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.mutatedFileOutput);
-//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.mutatedFileOutput);
+//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.mutatedFileOutput);
+//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.mutatedFileOutput);
+//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.mutatedFileOutput);
 //
-//           const subtractionOutput = path.join(inputData.outputDirectory, names.subtraction.output);
-//           const snpFiltrationOutput = path.join(inputData.outputDirectory, names.snpFiltration.output);
+//           const subtractionOutput = path.join(inputData.outputDirectory, filenames.subtraction.output);
+//           const snpFiltrationOutput = path.join(inputData.outputDirectory, filenames.snpFiltration.output);
 //           const outputFile = path.join(inputData.outputDirectory, inputData.outputFilename);
 //
 //           const messages = [
@@ -427,16 +427,16 @@ describe('dummy', () => {
 //         test('more than 70 bp script', done => {
 //           const inputData = Object.assign({}, sampleData, { skipQualityControl: true, skipBamConversion: true, bigBP: true });
 //
-//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.controlFileOutput);
-//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.controlFileOutput);
-//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.controlFileOutput);
+//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.controlFileOutput);
+//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.controlFileOutput);
+//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.controlFileOutput);
 //
-//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.mutatedFileOutput);
-//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.mutatedFileOutput);
-//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.mutatedFileOutput);
+//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.mutatedFileOutput);
+//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.mutatedFileOutput);
+//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.mutatedFileOutput);
 //
-//           const subtractionOutput = path.join(inputData.outputDirectory, names.subtraction.output);
-//           const snpFiltrationOutput = path.join(inputData.outputDirectory, names.snpFiltration.output);
+//           const subtractionOutput = path.join(inputData.outputDirectory, filenames.subtraction.output);
+//           const snpFiltrationOutput = path.join(inputData.outputDirectory, filenames.snpFiltration.output);
 //           const outputFile = path.join(inputData.outputDirectory, inputData.outputFilename);
 //
 //           const messages = [
@@ -496,18 +496,18 @@ describe('dummy', () => {
 //         test('simple script', done => {
 //           const inputData = Object.assign({}, sampleData, { skipBamConversion: true });
 //
-//           const controlFileQualityControlOutput = path.join(inputData.outputDirectory, names.qualityControl.controlFileOutput);
-//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.controlFileOutput);
-//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.controlFileOutput);
-//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.controlFileOutput);
+//           const controlFileQualityControlOutput = path.join(inputData.outputDirectory, filenames.qualityControl.controlFileOutput);
+//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.controlFileOutput);
+//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.controlFileOutput);
+//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.controlFileOutput);
 //
-//           const mutatedFileQualityControlOutput = path.join(inputData.outputDirectory, names.qualityControl.mutatedFileOutput);
-//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.mutatedFileOutput);
-//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.mutatedFileOutput);
-//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.mutatedFileOutput);
+//           const mutatedFileQualityControlOutput = path.join(inputData.outputDirectory, filenames.qualityControl.mutatedFileOutput);
+//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.mutatedFileOutput);
+//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.mutatedFileOutput);
+//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.mutatedFileOutput);
 //
-//           const subtractionOutput = path.join(inputData.outputDirectory, names.subtraction.output);
-//           const snpFiltrationOutput = path.join(inputData.outputDirectory, names.snpFiltration.output);
+//           const subtractionOutput = path.join(inputData.outputDirectory, filenames.subtraction.output);
+//           const snpFiltrationOutput = path.join(inputData.outputDirectory, filenames.snpFiltration.output);
 //           const outputFile = path.join(inputData.outputDirectory, inputData.outputFilename);
 //
 //           const messages = [
@@ -572,18 +572,18 @@ describe('dummy', () => {
 //         test('more than 70 bp script', done => {
 //           const inputData = Object.assign({}, sampleData, { skipBamConversion: true, bigBP: true });
 //
-//           const controlFileQualityControlOutput = path.join(inputData.outputDirectory, names.qualityControl.controlFileOutput);
-//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.controlFileOutput);
-//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.controlFileOutput);
-//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.controlFileOutput);
+//           const controlFileQualityControlOutput = path.join(inputData.outputDirectory, filenames.qualityControl.controlFileOutput);
+//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.controlFileOutput);
+//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.controlFileOutput);
+//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.controlFileOutput);
 //
-//           const mutatedFileQualityControlOutput = path.join(inputData.outputDirectory, names.qualityControl.mutatedFileOutput);
-//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.mutatedFileOutput);
-//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.mutatedFileOutput);
-//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.mutatedFileOutput);
+//           const mutatedFileQualityControlOutput = path.join(inputData.outputDirectory, filenames.qualityControl.mutatedFileOutput);
+//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.mutatedFileOutput);
+//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.mutatedFileOutput);
+//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.mutatedFileOutput);
 //
-//           const subtractionOutput = path.join(inputData.outputDirectory, names.subtraction.output);
-//           const snpFiltrationOutput = path.join(inputData.outputDirectory, names.snpFiltration.output);
+//           const subtractionOutput = path.join(inputData.outputDirectory, filenames.subtraction.output);
+//           const snpFiltrationOutput = path.join(inputData.outputDirectory, filenames.snpFiltration.output);
 //           const outputFile = path.join(inputData.outputDirectory, inputData.outputFilename);
 //
 //           const messages = [
@@ -655,20 +655,20 @@ describe('dummy', () => {
 //         test('simple script', done => {
 //           const inputData = Object.assign({}, sampleData, { skipQualityControl: true, pairEnd: true });
 //
-//           const controlFileBamConversionOutput = path.join(inputData.outputDirectory, names.bamConversion.controlFileOutput);
-//           const controlFileBamConversionSEOutput = path.join(inputData.outputDirectory, names.bamConversion.controlFileSEOutput);
-//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.controlFileOutput);
-//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.controlFileOutput);
-//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.controlFileOutput);
+//           const controlFileBamConversionOutput = path.join(inputData.outputDirectory, filenames.bamConversion.controlFileOutput);
+//           const controlFileBamConversionSEOutput = path.join(inputData.outputDirectory, filenames.bamConversion.controlFileSEOutput);
+//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.controlFileOutput);
+//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.controlFileOutput);
+//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.controlFileOutput);
 //
-//           const mutatedFileBamConversionOutput = path.join(inputData.outputDirectory, names.bamConversion.mutatedFileOutput);
-//           const mutatedFileBamConversionSEOutput = path.join(inputData.outputDirectory, names.bamConversion.mutatedFileSEOutput);
-//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.mutatedFileOutput);
-//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.mutatedFileOutput);
-//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.mutatedFileOutput);
+//           const mutatedFileBamConversionOutput = path.join(inputData.outputDirectory, filenames.bamConversion.mutatedFileOutput);
+//           const mutatedFileBamConversionSEOutput = path.join(inputData.outputDirectory, filenames.bamConversion.mutatedFileSEOutput);
+//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.mutatedFileOutput);
+//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.mutatedFileOutput);
+//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.mutatedFileOutput);
 //
-//           const subtractionOutput = path.join(inputData.outputDirectory, names.subtraction.output);
-//           const snpFiltrationOutput = path.join(inputData.outputDirectory, names.snpFiltration.output);
+//           const subtractionOutput = path.join(inputData.outputDirectory, filenames.subtraction.output);
+//           const snpFiltrationOutput = path.join(inputData.outputDirectory, filenames.snpFiltration.output);
 //           const outputFile = path.join(inputData.outputDirectory, inputData.outputFilename);
 //
 //           const messages = [
@@ -735,20 +735,20 @@ describe('dummy', () => {
 //         test('more than 70 bp script', done => {
 //           const inputData = Object.assign({}, sampleData, { skipQualityControl: true, pairEnd: true, bigBP: true });
 //
-//           const controlFileBamConversionOutput = path.join(inputData.outputDirectory, names.bamConversion.controlFileOutput);
-//           const controlFileBamConversionSEOutput = path.join(inputData.outputDirectory, names.bamConversion.controlFileSEOutput);
-//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.controlFileOutput);
-//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.controlFileOutput);
-//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.controlFileOutput);
+//           const controlFileBamConversionOutput = path.join(inputData.outputDirectory, filenames.bamConversion.controlFileOutput);
+//           const controlFileBamConversionSEOutput = path.join(inputData.outputDirectory, filenames.bamConversion.controlFileSEOutput);
+//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.controlFileOutput);
+//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.controlFileOutput);
+//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.controlFileOutput);
 //
-//           const mutatedFileBamConversionOutput = path.join(inputData.outputDirectory, names.bamConversion.mutatedFileOutput);
-//           const mutatedFileBamConversionSEOutput = path.join(inputData.outputDirectory, names.bamConversion.mutatedFileSEOutput);
-//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.mutatedFileOutput);
-//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.mutatedFileOutput);
-//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.mutatedFileOutput);
+//           const mutatedFileBamConversionOutput = path.join(inputData.outputDirectory, filenames.bamConversion.mutatedFileOutput);
+//           const mutatedFileBamConversionSEOutput = path.join(inputData.outputDirectory, filenames.bamConversion.mutatedFileSEOutput);
+//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.mutatedFileOutput);
+//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.mutatedFileOutput);
+//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.mutatedFileOutput);
 //
-//           const subtractionOutput = path.join(inputData.outputDirectory, names.subtraction.output);
-//           const snpFiltrationOutput = path.join(inputData.outputDirectory, names.snpFiltration.output);
+//           const subtractionOutput = path.join(inputData.outputDirectory, filenames.subtraction.output);
+//           const snpFiltrationOutput = path.join(inputData.outputDirectory, filenames.snpFiltration.output);
 //           const outputFile = path.join(inputData.outputDirectory, inputData.outputFilename);
 //
 //           const messages = [
@@ -816,24 +816,24 @@ describe('dummy', () => {
 //         test('simple script', done => {
 //           const inputData = Object.assign({}, sampleData, { pairEnd: true });
 //
-//           const controlFileBamConversionOutput = path.join(inputData.outputDirectory, names.bamConversion.controlFileOutput);
-//           const controlFileBamConversionSEOutput = path.join(inputData.outputDirectory, names.bamConversion.controlFileSEOutput);
-//           const controlFileQualityControlOutput = path.join(inputData.outputDirectory, names.qualityControl.controlFileOutput);
-//           const controlFileQualityControlSEOutput = path.join(inputData.outputDirectory, names.qualityControl.controlFileSEOutput);
-//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.controlFileOutput);
-//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.controlFileOutput);
-//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.controlFileOutput);
+//           const controlFileBamConversionOutput = path.join(inputData.outputDirectory, filenames.bamConversion.controlFileOutput);
+//           const controlFileBamConversionSEOutput = path.join(inputData.outputDirectory, filenames.bamConversion.controlFileSEOutput);
+//           const controlFileQualityControlOutput = path.join(inputData.outputDirectory, filenames.qualityControl.controlFileOutput);
+//           const controlFileQualityControlSEOutput = path.join(inputData.outputDirectory, filenames.qualityControl.controlFileSEOutput);
+//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.controlFileOutput);
+//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.controlFileOutput);
+//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.controlFileOutput);
 //
-//           const mutatedFileBamConversionOutput = path.join(inputData.outputDirectory, names.bamConversion.mutatedFileOutput);
-//           const mutatedFileBamConversionSEOutput = path.join(inputData.outputDirectory, names.bamConversion.mutatedFileSEOutput);
-//           const mutatedFileQualityControlOutput = path.join(inputData.outputDirectory, names.qualityControl.mutatedFileOutput);
-//           const mutatedFileQualityControlSEOutput = path.join(inputData.outputDirectory, names.qualityControl.mutatedFileSEOutput);
-//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.mutatedFileOutput);
-//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.mutatedFileOutput);
-//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.mutatedFileOutput);
+//           const mutatedFileBamConversionOutput = path.join(inputData.outputDirectory, filenames.bamConversion.mutatedFileOutput);
+//           const mutatedFileBamConversionSEOutput = path.join(inputData.outputDirectory, filenames.bamConversion.mutatedFileSEOutput);
+//           const mutatedFileQualityControlOutput = path.join(inputData.outputDirectory, filenames.qualityControl.mutatedFileOutput);
+//           const mutatedFileQualityControlSEOutput = path.join(inputData.outputDirectory, filenames.qualityControl.mutatedFileSEOutput);
+//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.mutatedFileOutput);
+//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.mutatedFileOutput);
+//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.mutatedFileOutput);
 //
-//           const subtractionOutput = path.join(inputData.outputDirectory, names.subtraction.output);
-//           const snpFiltrationOutput = path.join(inputData.outputDirectory, names.snpFiltration.output);
+//           const subtractionOutput = path.join(inputData.outputDirectory, filenames.subtraction.output);
+//           const snpFiltrationOutput = path.join(inputData.outputDirectory, filenames.snpFiltration.output);
 //           const outputFile = path.join(inputData.outputDirectory, inputData.outputFilename);
 //
 //           const messages = [
@@ -915,24 +915,24 @@ describe('dummy', () => {
 //         test('more than 70 bp script', done => {
 //           const inputData = Object.assign({}, sampleData, { pairEnd: true, bigBP: true });
 //
-//           const controlFileBamConversionOutput = path.join(inputData.outputDirectory, names.bamConversion.controlFileOutput);
-//           const controlFileBamConversionSEOutput = path.join(inputData.outputDirectory, names.bamConversion.controlFileSEOutput);
-//           const controlFileQualityControlOutput = path.join(inputData.outputDirectory, names.qualityControl.controlFileOutput);
-//           const controlFileQualityControlSEOutput = path.join(inputData.outputDirectory, names.qualityControl.controlFileSEOutput);
-//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.controlFileOutput);
-//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.controlFileOutput);
-//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.controlFileOutput);
+//           const controlFileBamConversionOutput = path.join(inputData.outputDirectory, filenames.bamConversion.controlFileOutput);
+//           const controlFileBamConversionSEOutput = path.join(inputData.outputDirectory, filenames.bamConversion.controlFileSEOutput);
+//           const controlFileQualityControlOutput = path.join(inputData.outputDirectory, filenames.qualityControl.controlFileOutput);
+//           const controlFileQualityControlSEOutput = path.join(inputData.outputDirectory, filenames.qualityControl.controlFileSEOutput);
+//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.controlFileOutput);
+//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.controlFileOutput);
+//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.controlFileOutput);
 //
-//           const mutatedFileBamConversionOutput = path.join(inputData.outputDirectory, names.bamConversion.mutatedFileOutput);
-//           const mutatedFileBamConversionSEOutput = path.join(inputData.outputDirectory, names.bamConversion.mutatedFileSEOutput);
-//           const mutatedFileQualityControlOutput = path.join(inputData.outputDirectory, names.qualityControl.mutatedFileOutput);
-//           const mutatedFileQualityControlSEOutput = path.join(inputData.outputDirectory, names.qualityControl.mutatedFileSEOutput);
-//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.mutatedFileOutput);
-//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.mutatedFileOutput);
-//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.mutatedFileOutput);
+//           const mutatedFileBamConversionOutput = path.join(inputData.outputDirectory, filenames.bamConversion.mutatedFileOutput);
+//           const mutatedFileBamConversionSEOutput = path.join(inputData.outputDirectory, filenames.bamConversion.mutatedFileSEOutput);
+//           const mutatedFileQualityControlOutput = path.join(inputData.outputDirectory, filenames.qualityControl.mutatedFileOutput);
+//           const mutatedFileQualityControlSEOutput = path.join(inputData.outputDirectory, filenames.qualityControl.mutatedFileSEOutput);
+//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.mutatedFileOutput);
+//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.mutatedFileOutput);
+//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.mutatedFileOutput);
 //
-//           const subtractionOutput = path.join(inputData.outputDirectory, names.subtraction.output);
-//           const snpFiltrationOutput = path.join(inputData.outputDirectory, names.snpFiltration.output);
+//           const subtractionOutput = path.join(inputData.outputDirectory, filenames.subtraction.output);
+//           const snpFiltrationOutput = path.join(inputData.outputDirectory, filenames.snpFiltration.output);
 //           const outputFile = path.join(inputData.outputDirectory, inputData.outputFilename);
 //
 //           const messages = [
@@ -1026,16 +1026,16 @@ describe('dummy', () => {
 //           };
 //           const inputData = Object.assign({}, sampleData, dataAddition);
 //
-//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.controlFileOutput);
-//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.controlFileOutput);
-//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.controlFileOutput);
+//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.controlFileOutput);
+//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.controlFileOutput);
+//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.controlFileOutput);
 //
-//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.mutatedFileOutput);
-//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.mutatedFileOutput);
-//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.mutatedFileOutput);
+//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.mutatedFileOutput);
+//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.mutatedFileOutput);
+//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.mutatedFileOutput);
 //
-//           const subtractionOutput = path.join(inputData.outputDirectory, names.subtraction.output);
-//           const snpFiltrationOutput = path.join(inputData.outputDirectory, names.snpFiltration.output);
+//           const subtractionOutput = path.join(inputData.outputDirectory, filenames.subtraction.output);
+//           const snpFiltrationOutput = path.join(inputData.outputDirectory, filenames.snpFiltration.output);
 //           const outputFile = path.join(inputData.outputDirectory, inputData.outputFilename);
 //
 //           const messages = [
@@ -1101,16 +1101,16 @@ describe('dummy', () => {
 //           };
 //           const inputData = Object.assign({}, sampleData, dataAddition);
 //
-//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.controlFileOutput);
-//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.controlFileOutput);
-//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.controlFileOutput);
+//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.controlFileOutput);
+//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.controlFileOutput);
+//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.controlFileOutput);
 //
-//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.mutatedFileOutput);
-//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.mutatedFileOutput);
-//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.mutatedFileOutput);
+//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.mutatedFileOutput);
+//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.mutatedFileOutput);
+//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.mutatedFileOutput);
 //
-//           const subtractionOutput = path.join(inputData.outputDirectory, names.subtraction.output);
-//           const snpFiltrationOutput = path.join(inputData.outputDirectory, names.snpFiltration.output);
+//           const subtractionOutput = path.join(inputData.outputDirectory, filenames.subtraction.output);
+//           const snpFiltrationOutput = path.join(inputData.outputDirectory, filenames.snpFiltration.output);
 //           const outputFile = path.join(inputData.outputDirectory, inputData.outputFilename);
 //
 //           const messages = [
@@ -1176,20 +1176,20 @@ describe('dummy', () => {
 //           };
 //           const inputData = Object.assign({}, sampleData, dataAddition);
 //
-//           const controlFileQualityControlOutput = path.join(inputData.outputDirectory, names.qualityControl.controlFileOutput);
-//           const controlFileQualityControlSEOutput = path.join(inputData.outputDirectory, names.qualityControl.controlFileSEOutput);
-//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.controlFileOutput);
-//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.controlFileOutput);
-//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.controlFileOutput);
+//           const controlFileQualityControlOutput = path.join(inputData.outputDirectory, filenames.qualityControl.controlFileOutput);
+//           const controlFileQualityControlSEOutput = path.join(inputData.outputDirectory, filenames.qualityControl.controlFileSEOutput);
+//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.controlFileOutput);
+//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.controlFileOutput);
+//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.controlFileOutput);
 //
-//           const mutatedFileQualityControlOutput = path.join(inputData.outputDirectory, names.qualityControl.mutatedFileOutput);
-//           const mutatedFileQualityControlSEOutput = path.join(inputData.outputDirectory, names.qualityControl.mutatedFileSEOutput);
-//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.mutatedFileOutput);
-//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.mutatedFileOutput);
-//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.mutatedFileOutput);
+//           const mutatedFileQualityControlOutput = path.join(inputData.outputDirectory, filenames.qualityControl.mutatedFileOutput);
+//           const mutatedFileQualityControlSEOutput = path.join(inputData.outputDirectory, filenames.qualityControl.mutatedFileSEOutput);
+//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.mutatedFileOutput);
+//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.mutatedFileOutput);
+//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.mutatedFileOutput);
 //
-//           const subtractionOutput = path.join(inputData.outputDirectory, names.subtraction.output);
-//           const snpFiltrationOutput = path.join(inputData.outputDirectory, names.snpFiltration.output);
+//           const subtractionOutput = path.join(inputData.outputDirectory, filenames.subtraction.output);
+//           const snpFiltrationOutput = path.join(inputData.outputDirectory, filenames.snpFiltration.output);
 //           const outputFile = path.join(inputData.outputDirectory, inputData.outputFilename);
 //
 //           const messages = [
@@ -1270,20 +1270,20 @@ describe('dummy', () => {
 //           };
 //           const inputData = Object.assign({}, sampleData, dataAddition);
 //
-//           const controlFileQualityControlOutput = path.join(inputData.outputDirectory, names.qualityControl.controlFileOutput);
-//           const controlFileQualityControlSEOutput = path.join(inputData.outputDirectory, names.qualityControl.controlFileSEOutput);
-//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.controlFileOutput);
-//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.controlFileOutput);
-//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.controlFileOutput);
+//           const controlFileQualityControlOutput = path.join(inputData.outputDirectory, filenames.qualityControl.controlFileOutput);
+//           const controlFileQualityControlSEOutput = path.join(inputData.outputDirectory, filenames.qualityControl.controlFileSEOutput);
+//           const controlFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.controlFileOutput);
+//           const controlFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.controlFileOutput);
+//           const controlFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.controlFileOutput);
 //
-//           const mutatedFileQualityControlOutput = path.join(inputData.outputDirectory, names.qualityControl.mutatedFileOutput);
-//           const mutatedFileQualityControlSEOutput = path.join(inputData.outputDirectory, names.qualityControl.mutatedFileSEOutput);
-//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, names.alignment.mutatedFileOutput);
-//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, names.samConversion.mutatedFileOutput);
-//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, names.snpCaller.mutatedFileOutput);
+//           const mutatedFileQualityControlOutput = path.join(inputData.outputDirectory, filenames.qualityControl.mutatedFileOutput);
+//           const mutatedFileQualityControlSEOutput = path.join(inputData.outputDirectory, filenames.qualityControl.mutatedFileSEOutput);
+//           const mutatedFileAlignmentOutput = path.join(inputData.outputDirectory, filenames.alignment.mutatedFileOutput);
+//           const mutatedFileSamConversionOutput = path.join(inputData.outputDirectory, filenames.samConversion.mutatedFileOutput);
+//           const mutatedFileSnpCallerOutput = path.join(inputData.outputDirectory, filenames.snpCaller.mutatedFileOutput);
 //
-//           const subtractionOutput = path.join(inputData.outputDirectory, names.subtraction.output);
-//           const snpFiltrationOutput = path.join(inputData.outputDirectory, names.snpFiltration.output);
+//           const subtractionOutput = path.join(inputData.outputDirectory, filenames.subtraction.output);
+//           const snpFiltrationOutput = path.join(inputData.outputDirectory, filenames.snpFiltration.output);
 //           const outputFile = path.join(inputData.outputDirectory, inputData.outputFilename);
 //
 //           const messages = [

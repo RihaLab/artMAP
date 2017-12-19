@@ -16,7 +16,8 @@
     "build:webpack": "webpack --config webpack.config.prod.js",
     "build:css": "node-sass src/client/style/sass/style.scss -o lib/server/public",
     "clean": "rimraf lib",
-    "lint": "eslint src/**"
+    "lint": "flow && eslint src/**",
+    "flow:install": "flow-typed install"
   },
   "main": "dist/app.js",
   "preferGlobal": true,
@@ -38,7 +39,7 @@
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "react-router-redux": "^4.0.8",
+    "react-router-redux": "^5.0.0-alpha.9",
     "redux": "^3.7.2",
     "redux-form": "^7.2.0",
     "redux-observable": "^0.17.0",
@@ -65,6 +66,8 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.5.1",
     "file-loader": "^1.1.5",
+    "flow-bin": "^0.61.0",
+    "flow-typed": "^2.2.3",
     "html-webpack-plugin": "^2.30.1",
     "node-sass": "^4.7.2",
     "rimraf": "^2.6.2",
