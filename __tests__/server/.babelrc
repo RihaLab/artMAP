@@ -1,0 +1,11 @@
+{
+  "presets": ["flow"],
+  "env": {
+    "test": {
+      "plugins": [
+        ["transform-object-rest-spread"],
+        ["transform-react-display-name"]
+      ]
+    }
+  }
+}
