@@ -1,21 +1,28 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route } from 'react-router';
-import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
-import { syncHistoryWithStore } from 'react-router-redux';
-import Dashboard from './container/dashboard.container';
-import store from './store';
-
-const history = syncHistoryWithStore(createBrowserHistory(), store);
+import { ConnectedRouter } from 'react-router-redux';
+import { Route } from 'react-router';
+import ReactModal from 'react-modal';
+// eslint-disable-next-line import/extensions,import/no-unresolved,import/no-extraneous-dependencies
+import { charts } from 'charts';
+import store, { history } from './store';
+import { Pipeline } from './container';
+import { AppWrapper } from './component/appWrapper';
 
 const provider = (
   <Provider store={store}>
-    <Router history={history}>
-      <Route path="/" component={Dashboard} />
-    </Router>
-  </Provider>);
+    <ConnectedRouter history={history}>
+      <AppWrapper>
+        <div>
+          <Route exact path="/" component={Pipeline} />
+        </div>
+      </AppWrapper>
+    </ConnectedRouter>
+  </Provider>
+);
 
+ReactModal.setAppElement('#root');
 
-// eslint-disable-next-line no-undef
-render(provider, document.getElementById('root'));
+charts.load('current', { packages: ['corechart'] });
+charts.setOnLoadCallback(() => render(provider, document.getElementById('root')));

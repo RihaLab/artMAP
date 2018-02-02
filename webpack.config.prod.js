@@ -5,12 +5,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   context: __dirname,
   entry: [
-    './src/client/app.jsx',
-    './lib/server/public/style.css',
+    'babel-polyfill',
+    'whatwg-fetch',
+    './src/client/app',
   ],
   output: {
     path: path.join(__dirname, 'lib/server/public'),
     filename: 'bundle.js',
+  },
+  externals: {
+    charts: 'google',
   },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
@@ -23,6 +27,7 @@ module.exports = {
       title: 'Artin DNA',
       template: 'src/client/index.html',
     }),
+    new webpack.optimize.UglifyJsPlugin(),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -35,17 +40,6 @@ module.exports = {
         use: ['babel-loader'],
         include: path.join(__dirname, 'src', 'client'),
       },
-      // css
-      {
-        test: /\.css$/,
-        use: ['css-loader'],
-      },
-      // fonts
-      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader?mimetype=image/svg+xml' },
-      { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader?mimetype=application/font-woff' },
-      { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader?mimetype=application/font-woff' },
-      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader?mimetype=application/octet-stream' },
-      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader' },
     ],
   },
 };

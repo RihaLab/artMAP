@@ -1,8 +1,16 @@
 {
-  "extends": ["airbnb", "plugin:flowtype/recommended"],
-  "plugins": ["flowtype"],
+  "extends": ["airbnb"],
+  "plugins": ["async-await"],
   "parser": "babel-eslint",
   "rules": {
-    "no-use-before-define": "off"
+    "no-use-before-define": "off",
+    "jsx-a11y/label-has-for": "off",
+    "async-await/space-after-async": 2,
+    "async-await/space-after-await": 2
+  },
+  "globals": {
+    "document": true,
+    "window": true,
+    "fetch": true
   }
 }

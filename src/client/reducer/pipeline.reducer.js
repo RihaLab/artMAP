@@ -1,55 +1,48 @@
-import { Map, List } from 'immutable';
-import * as types from '../action/pipeline/pipeline.actionType';
-import { RESET_OPERATION_INFO } from '../action/general/general.actionType';
-import { DONE, IN_PROGRESS, CANCELED, FAILED } from '../action/OperationStatusEnum';
+import {
+  PROCESSING_PROGRESS,
+  PROCESSING_OPERATION_RESULT,
+  PROCESSING_FINISHED,
+  PROCESSING_OPERATION_INFO,
+  START_PROCESSING,
+  CANCEL_PROCESSING,
+} from '../action/pipeline/pipeline.action';
+import { IN_PROGRESS } from '../action/pipeline/pipelineResultType';
 
-const defaultState = new Map({
-  operations: new List(),
-  graphs: new Map(),
-});
+const defaultState = {
+  operations: {},
+  progress: 0,
+};
 
-const OPERATION_STATE = 'operationState';
-
-export default function bamConversionReducer(state = defaultState, action) {
+export default function wizardReducer(state = defaultState, action) {
   switch (action.type) {
-    case types.START_PIPELINE: {
-      return state.set(OPERATION_STATE, IN_PROGRESS);
+    case START_PROCESSING: {
+      return Object.assign({}, state, { pipelineState: IN_PROGRESS });
     }
-    case types.PIPELINE_COMPLETED: {
-      return state.set(OPERATION_STATE, DONE);
+    case PROCESSING_PROGRESS: {
+      return Object.assign({}, state, { progress: action.progress });
     }
-    case types.PIPELINE_FAILED: {
-      return state.set(OPERATION_STATE, FAILED);
+    case PROCESSING_OPERATION_RESULT: {
+      const operations = Object.assign({}, state.operations);
+      operations[action.operation].result = action.result;
+      return Object.assign({}, state, { operations });
     }
-    case types.PIPELINE_INFO: {
-      const operationIndex = state.get('operations').findIndex(op => op.get('name') === action.operationName);
-      if (operationIndex !== -1) {
-        return state.updateIn(['operations', operationIndex, 'info'], info => info.push(action.operationInfo));
+    case PROCESSING_OPERATION_INFO: {
+      const operations = Object.assign({}, state.operations);
+      const operationEntry = { timestamp: action.timestamp, info: action.info };
+
+      if (!operations[action.operation]) {
+        operations[action.operation] = {
+          log: [operationEntry],
+        };
+      } else {
+        operations[action.operation].log.push(operationEntry);
       }
-      return state.update('operations', operations => operations.push(new Map({
-        progress: 0,
-        name: action.operationName,
-        info: new List([action.operationInfo]),
-      })));
+      return Object.assign({}, state, { operations });
     }
-    case types.PIPELINE_IN_PROGRESS: {
-      const operationIndex = state.get('operations').findIndex(op => op.get('name') === action.operationName);
-      if (operationIndex !== -1) {
-        return state.setIn(['operations', operationIndex, 'progress'], action.operationsProgress);
-      }
-      return state.update('operations', operations => operations.push(new Map({
-        name: action.operationName,
-        progress: action.operationProgress,
-        info: new List(),
-      })));
+    case PROCESSING_FINISHED: {
+      return Object.assign({}, state, { result: action.result, file: action.file });
     }
-    case types.PIPELINE_GRAPHS: {
-      return state.set('graphs', new Map(action.graphs));
-    }
-    case types.CANCEL_PIPELINE: {
-      return state.set(OPERATION_STATE, CANCELED);
-    }
-    case RESET_OPERATION_INFO: {
+    case CANCEL_PROCESSING: {
       return defaultState;
     }
     default:

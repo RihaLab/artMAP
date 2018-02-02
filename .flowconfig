@@ -1,7 +1,0 @@
-[ignore]
-.*/node_modules/jss/.*
-[include]
-
-[libs]
-
-[options]

@@ -1,29 +1,71 @@
-// @flow
-
+/* eslint-disable max-len */
 import path from 'path';
 import tmp from 'tmp';
+import createLogger from 'debug';
 import { Observable } from 'rxjs';
-import { fromScript } from './util/scriptUtil';
+import { fromScript } from '../util';
+import filename from './pipelineOutputFilename';
 
-import type { AlignmentPayload, Observable as ObservableType, Script } from '../flowType/type';
+const REFERENCE_GENOME = path.join(process.env.REFERENCE_GENOME_DIR, `${process.env.REFERENCE_GENOME}.fa`);
+const log = createLogger('dna:service:alignment');
 
-// TODO rewrite with process.env
-const referenceGenome = path.join(__dirname, '../..', 'data', 'genome.fa');
+export const alignmentControlFile = (data) => {
+  const modification = {
+    outputFilename: filename.alignment.controlFileOutput,
+  };
+  if (data.skipQualityControl && data.skipBamConversion) {
+    modification.inputFile = data.controlFile;
+    modification.pairedInputFile = data.controlFileSE;
+  } else if (data.skipQualityControl && !data.skipBamConversion) {
+    modification.inputFile = path.join(data.outputDirectory, filename.bamConversion.controlFileOutput);
+    modification.pairedInputFile = path.join(data.outputDirectory, filename.bamConversion.controlFileSEOutput);
+  } else {
+    modification.inputFile = path.join(data.outputDirectory, filename.qualityControl.controlFileOutput);
+    modification.pairedInputFile = path.join(data.outputDirectory, filename.qualityControl.controlFileSEOutput);
+  }
 
-export default function alignment(data: AlignmentPayload): ObservableType {
+  const payload = Object.assign({}, data, modification);
+  return alignment(payload)
+    .concat(Observable.defer(() => payload.emitResult({ code: 0, operation: 'Alignment - control file' })))
+    .map(info => Object.assign(info, { operation: 'Alignment - control file' }))
+    .catch(err => Object.assign(err, { operation: 'Alignment - control file' }));
+};
+
+export const alignmentMutatedFile = (data) => {
+  const modification = {
+    outputFilename: filename.alignment.mutatedFileOutput,
+  };
+
+  if (data.skipQualityControl && data.skipBamConversion) {
+    modification.inputFile = data.mutatedFile;
+    modification.pairedInputFile = data.mutatedFileSE;
+  } else if (data.skipQualityControl && !data.skipBamConversion) {
+    modification.inputFile = path.join(data.outputDirectory, filename.bamConversion.mutatedFileOutput);
+    modification.pairedInputFile = path.join(data.outputDirectory, filename.bamConversion.mutatedFileSEOutput);
+  } else {
+    modification.inputFile = path.join(data.outputDirectory, filename.qualityControl.mutatedFileOutput);
+    modification.pairedInputFile = path.join(data.outputDirectory, filename.qualityControl.mutatedFileSEOutput);
+  }
+
+  const payload = Object.assign({}, data, modification);
+  return alignment(payload)
+    .concat(Observable.defer(() => payload.emitResult({ code: 0, operation: 'Alignment - mutated file' })))
+    .map(info => Object.assign(info, { operation: 'Alignment - mutated file' }))
+    .catch(err => Object.assign(err, { operation: 'Alignment - mutated file' }));
+};
+
+function alignment(data) {
   let result;
   if (data.pairEnd && data.pairedInputFile) {
     result = data.bigBP ? pairedEndBigBP(data) : pairedEndSmallBP(data);
   } else {
     result = data.bigBP ? singleEndBigBP(data) : singleEndSmallBP(data);
   }
-
-  return Observable.of({ progress: 0 })
-    .concat(result)
-    .concat(Observable.of({ progress: 100 }));
+  return result
+    .do(payload => log(payload.info));
 }
 
-function singleEndSmallBP(data: AlignmentPayload): ObservableType {
+function singleEndSmallBP(data) {
   const tmpObj = tmp.dirSync({ unsafeCleanup: true, dir: data.outputDirectory });
   const outputFile = path.join(data.outputDirectory, data.outputFilename);
   const alnTmpFile = path.join(tmpObj.name, 'alignment-tmp-file');
@@ -31,21 +73,18 @@ function singleEndSmallBP(data: AlignmentPayload): ObservableType {
   const samseScript = createSamseScript(data.inputFile, alnTmpFile, outputFile, data.samseParams);
 
   return fromScript(alnScript)
-    .map(info => Object({ info }))
-    .concat(Observable.of({ progress: 50 }))
-    .concat(fromScript(samseScript)
-      .map(info => Object({ info })))
+    .concat(fromScript(samseScript))
     .finally(tmpObj.removeCallback);
 }
 
-function singleEndBigBP(data: AlignmentPayload): ObservableType {
+function singleEndBigBP(data) {
   const outputFile = path.join(data.outputDirectory, data.outputFilename);
   const memScript = createMemScript(data.inputFile, outputFile);
-  return fromScript(memScript).map(info => Object({ info }));
+  return fromScript(memScript);
 }
 
-function pairedEndSmallBP(data: AlignmentPayload): ObservableType {
-  const { pairedInputFile } = data;
+function pairedEndSmallBP(data) {
+  const { pairedInputFile, inputFile } = data;
   if (!pairedInputFile) {
     return Observable.throw('Missing paired input file');
   }
@@ -55,51 +94,51 @@ function pairedEndSmallBP(data: AlignmentPayload): ObservableType {
   const alnTmpPairEndFile = path.join(tmpObj.name, 'alignment-tmp-pair-end');
   const alnScript1 = createAlnScript(data.inputFile, alnTmpFile, data.alnParams);
   const alnScript2 = createAlnScript(pairedInputFile, alnTmpPairEndFile, data.alnParams);
-  // todo refactor
-  // eslint-disable-next-line max-len
-  const sampeScript = createSampeScript(data.inputFile, pairedInputFile, alnTmpFile, alnTmpPairEndFile, outputFile, data.sampeParams);
+  const sampeScript = createSampeScript({
+    inputFile,
+    inputFilePairEnd: pairedInputFile,
+    aln: alnTmpFile,
+    alnPairEnd: alnTmpPairEndFile,
+    output: outputFile,
+  });
 
   return fromScript(alnScript1)
     .merge(fromScript(alnScript2))
-    .map(info => Object({ info }))
-    .concat(Observable.of({ progress: 67 }))
-    .concat(fromScript(sampeScript)
-      .map(info => Object({ info })))
+    .concat(fromScript(sampeScript))
     .finally(tmpObj.removeCallback);
 }
 
-function pairedEndBigBP(data: AlignmentPayload): ObservableType {
+function pairedEndBigBP(data) {
   const outputFile = path.join(data.outputDirectory, data.outputFilename);
   const memScript = createMemScript(data.inputFile, outputFile, data.pairedInputFile);
-  return fromScript(memScript).map(info => Object({ info }));
+  return fromScript(memScript);
 }
 
-function createAlnScript(input: string, output: string): Script {
+function createAlnScript(input, output) {
   const command = 'bwa';
-  const scriptParams = ['aln'].concat(referenceGenome, input);
+  const scriptParams = ['aln'].concat(REFERENCE_GENOME, input);
   return { command, params: scriptParams, output };
 }
 
-function createMemScript(input: string, output: string, secondEnd?: string): Script {
+function createMemScript(input, output, isSecondEnd) {
   const command = 'bwa';
 
-  let scriptParams = ['mem'].concat(referenceGenome, input);
-  if (secondEnd) {
-    scriptParams = scriptParams.concat(secondEnd);
+  let scriptParams = ['mem'].concat(REFERENCE_GENOME, input);
+  if (isSecondEnd) {
+    scriptParams = scriptParams.concat(isSecondEnd);
   }
   return { command, params: scriptParams, output };
 }
 
-function createSamseScript(input: string, alignmentStr: string, output: string): Script {
+function createSamseScript(input, aln, output) {
   const command = 'bwa';
-  const scriptParams = ['samse'].concat(referenceGenome, alignmentStr, input);
+  const scriptParams = ['samse'].concat(REFERENCE_GENOME, aln, input);
   return { command, params: scriptParams, output };
 }
 
-// todo refactor
-// eslint-disable-next-line max-len
-function createSampeScript(inputFile: string, inputFilePairEnd: string, alignmentStr: string, alignmentPairEnd: string, output: string) {
+// eslint-disable-next-line object-curly-newline
+function createSampeScript({ inputFile, inputFilePairEnd, aln, alnPairEnd, output }) {
   const command = 'bwa';
-  const scriptParams = ['sampe'].concat(referenceGenome, alignmentStr, alignmentPairEnd, inputFile, inputFilePairEnd);
+  const scriptParams = ['sampe'].concat(REFERENCE_GENOME, aln, alnPairEnd, inputFile, inputFilePairEnd);
   return { command, params: scriptParams, output };
 }

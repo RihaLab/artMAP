@@ -1,9 +1,2 @@
-import * as types from './fileSelect.actionType';
-
-export function getFolderStructure(payload) {
-  return { type: types.GET_FOLDER_STRUCTURE, payload };
-}
-
-export function getFolderStructureCompleted(payload) {
-  return { type: types.GET_FOLDER_STRUCTURE_COMPLETED, payload };
-}
+export const FILE_STRUCTURE_RESOLVED = 'FILE_STRUCTURE_RESOLVED';
+export const MARK_FILE = 'MARK_FILE';

@@ -15,12 +15,12 @@ RUN conda install bwa \
     bedtools \
     bcftools
 
-ENV SNP_EFF /opt/conda/bin/snpEff
-
 RUN groupadd --gid 1000 node \
   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
 
 # gpg keys listed at https://github.com/nodejs/node#release-team
+RUN echo "Installing Node JS"
+
 RUN set -ex \
   && for key in \
     94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
@@ -76,22 +76,11 @@ RUN set -ex \
   && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
   && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
 
-EXPOSE 8080
-ENTRYPOINT []
+RUN echo "Adding genome basis"
+COPY data /genome
 
-RUN ["mkdir", "-p", "/code"]
-ADD ["package*", "webpack*", "/code/"]
-ADD src /code/src
-ADD scripts /code/scripts
-
-WORKDIR /code
-RUN ["npm", "install"]
-RUN ["npm", "run", "build"]
-
-ENV NODE_ENV development
 ENV DEBUG dna:*
+ENV REFERENCE_GENOME_DIR /genome
+EXPOSE 3000
 
-EXPOSE 8080
-EXPOSE 5858
-
-CMD ["npm", "run", "dev"]
+CMD npm install -g artin-dna@next && artin-dna

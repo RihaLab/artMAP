@@ -1,39 +1,108 @@
-// @flow
-
 import path from 'path';
-import { rename } from 'fs';
 import { Observable } from 'rxjs';
-import { fromScript } from './util/scriptUtil';
+import createLogger from 'debug';
+import { fromScript, renameAsObservable } from '../util';
+import filename from './pipelineOutputFilename';
 
-import type { Observable as ObservableType, QualityControlPayload, Script } from '../flowType/type';
+const log = createLogger('dna:service:qualityControl');
 
-export default function qualityControl(data: QualityControlPayload): ObservableType {
-  const script = createScript(data);
-  return Observable.of({ progress: 0 })
-    .concat(fromScript(script)
-      .map(info => Object({ info })))
-    .concat(Observable.of({ progress: 95 }))
-    .concat(renameOutputFile(data)
-      .map(info => Object({ info })))
-    .concat(Observable.of({ progress: 100 }));
-}
+export const qualityControlControlFile = (data) => {
+  if (data.skipQualityControl) {
+    return Observable.empty();
+  }
 
-function renameOutputFile(data: QualityControlPayload): ObservableType {
-  const { name } = path.parse(data.inputFile);
-  const sourcePath = path.format({ dir: data.outputDirectory, name: `${name}_trimmed`, ext: '.fq' });
-  const outputFile = path.join(data.outputDirectory, data.outputFilename);
-  const renameAsObservable = Observable.bindNodeCallback(rename);
-  return Observable.concat(
-    Observable.of(`Renaming from ${sourcePath} to ${outputFile}`),
-    renameAsObservable(sourcePath, outputFile),
-  );
-}
+  const modification = {
+    inputFile: data.skipBamConversion ? data.controlFile :
+      path.join(data.outputDirectory, filename.bamConversion.controlFileOutput),
+    outputFilename: filename.qualityControl.controlFileOutput,
+  };
 
-function createScript(data: QualityControlPayload): Script {
-  const command = 'trim_galore';
-  let params = [data.inputFile, '-o', data.outputDirectory, '--no_report_file'];
   if (data.pairEnd) {
-    params = params.concat('--paired');
+    modification.inputFileSE = data.skipBamConversion ? data.controlFileSE :
+      path.join(data.outputDirectory, filename.bamConversion.controlFileSEOutput);
+    modification.outputFilenameSE = filename.qualityControl.controlFileSEOutput;
+  }
+
+  const payload = Object.assign({}, data, modification);
+
+  return qualityControl(payload)
+    .concat(Observable.defer(() => payload.emitResult({ code: 0, operation: 'Quality control - control file' })))
+    .map(info => Object.assign(info, { operation: 'Quality control - control file' }))
+    .catch(err => Object.assign(err, { operation: 'Quality control - control file' }));
+};
+
+
+export const qualityControlMutatedFile = (data) => {
+  if (data.skipQualityControl) {
+    return Observable.empty();
+  }
+
+  const modification = {
+    inputFile: data.skipBamConversion ? data.mutatedFile :
+      path.join(data.outputDirectory, filename.bamConversion.mutatedFileOutput),
+    outputFilename: filename.qualityControl.mutatedFileOutput,
+  };
+
+  if (data.pairEnd) {
+    modification.inputFileSE = data.skipBamConversion ? data.mutatedFileSE :
+      path.join(data.outputDirectory, filename.bamConversion.mutatedFileSEOutput);
+    modification.outputFilenameSE = filename.qualityControl.mutatedFileSEOutput;
+  }
+
+  const payload = Object.assign({}, data, modification);
+
+  return qualityControl(payload)
+    .concat(Observable.defer(() => payload.emitResult({ code: 0, operation: 'Quality control - mutated file' })))
+    .map(info => Object.assign(info, { operation: 'Quality control - mutated file' }))
+    .catch(err => Object.assign(err, { operation: 'Quality control - mutated file' }));
+};
+
+function qualityControl(data) {
+  const script = createScript(data);
+  return fromScript(script)
+    .concat(renameOutputFile(data))
+    .do(payload => log(payload.info));
+}
+
+function renameOutputFile(data) {
+  const { name } = path.parse(data.inputFile);
+
+  if (data.pairEnd && data.inputFileSE) {
+    const nameSE = path.parse(data.inputFileSE).name;
+    const sourcePath = path.format({
+      dir: data.outputDirectory,
+      name: `${name}_val_1`,
+      ext: '.fq',
+    });
+    const sourcePathSE = path.format({
+      dir: data.outputDirectory,
+      name: `${nameSE}_val_2`,
+      ext: '.fq',
+    });
+
+    const outputFileSE = path.join(data.outputDirectory, data.outputFilenameSE);
+    const outputFile = path.join(data.outputDirectory, data.outputFilename);
+
+    return renameAsObservable(sourcePath, outputFile)
+      .merge(renameAsObservable(sourcePathSE, outputFileSE));
+  }
+  const sourcePath = path.format({
+    dir: data.outputDirectory,
+    name: `${name}_trimmed`,
+    ext: '.fq',
+  });
+
+  const outputFile = path.join(data.outputDirectory, data.outputFilename);
+  return renameAsObservable(sourcePath, outputFile);
+}
+
+function createScript(data) {
+  const command = 'trim_galore';
+  const params = ['-o', data.outputDirectory, '--no_report_file'];
+  if (data.pairEnd && data.inputFileSE) {
+    params.push('--paired', data.inputFile, data.inputFileSE);
+  } else {
+    params.push(data.inputFile);
   }
   return { command, params };
 }

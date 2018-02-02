@@ -1,20 +1,54 @@
-// @flow
-
 import path from 'path';
-import { Observable } from 'rxjs';
-import { fromScript } from './util/scriptUtil';
+import createLogger from 'debug';
+import { Observable } from 'rxjs/Rx';
+import { fromScript } from '../util';
+import filename from './pipelineOutputFilename';
 
-import type { Script, BamConversionPayload, Observable as ObservableType } from '../flowType/type';
+const log = createLogger('dna:service:bamConversion');
 
-export default function conversion(data: BamConversionPayload): ObservableType {
+export const bamConversionControlFile = (data) => {
+  if (data.skipBamConversion) {
+    return Observable.empty();
+  }
+
+  const modification = {
+    inputFile: data.controlFile,
+    outputFilename: filename.bamConversion.controlFileOutput,
+    secondNameOutputFilename: filename.bamConversion.controlFileSEOutput,
+  };
+
+  const payload = Object.assign({}, data, modification);
+  return bamConversion(payload)
+    .concat(Observable.defer(() => payload.emitResult({ code: 0, operation: 'BAM Conversion - control file' })))
+    .map(info => Object.assign(info, { operation: 'BAM Conversion - control file' }))
+    .catch(err => Object.assign(err, { operation: 'BAM Conversion - control file' }));
+};
+
+export const bamConversionMutatedFile = (data) => {
+  if (data.skipBamConversion) {
+    return Observable.empty();
+  }
+
+  const modification = {
+    inputFile: data.mutatedFile,
+    outputFilename: filename.bamConversion.mutatedFileOutput,
+    secondNameOutputFilename: filename.bamConversion.mutatedFileOutput,
+  };
+
+  const payload = Object.assign({}, data, modification);
+  return bamConversion(payload)
+    .concat(Observable.defer(() => payload.emitResult({ code: 0, operation: 'BAM Conversion - mutated file' })))
+    .map(info => Object.assign(info, { operation: 'BAM Conversion - mutated file' }))
+    .catch(err => Object.assign(err, { operation: 'BAM Conversion - mutated file' }));
+};
+
+function bamConversion(data) {
   const script = createScript(data);
-  return Observable.of({ progress: 0 })
-    .concat(fromScript(script)
-      .map(info => Object({ info })))
-    .concat(Observable.of({ progress: 100 }));
+  return fromScript(script)
+    .do(payload => log(payload.info));
 }
 
-function createScript(data: BamConversionPayload): Script {
+function createScript(data) {
   const command = 'bamToFastq';
   const outputFile = path.join(data.outputDirectory, data.outputFilename);
   let params = ['-i', data.inputFile, '-fq', outputFile];

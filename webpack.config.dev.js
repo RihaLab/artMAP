@@ -6,9 +6,10 @@ module.exports = {
   context: __dirname,
   devtool: 'source-map',
   entry: [
+    'babel-polyfill',
+    'whatwg-fetch',
     'webpack-hot-middleware/client',
     './src/client/app',
-    './lib/server/public/style.css',
   ],
   output: {
     path: path.join(__dirname, 'lib/server/public'),
@@ -16,6 +17,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+  },
+  externals: {
+    charts: 'google',
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -36,14 +40,8 @@ module.exports = {
       // css
       {
         test: /\.css$/,
-        use: ['css-loader'],
+        use: ['style-loader', 'postcss-loader'],
       },
-      // fonts
-      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader?mimetype=image/svg+xml' },
-      { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader?mimetype=application/font-woff' },
-      { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader?mimetype=application/font-woff' },
-      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader?mimetype=application/octet-stream' },
-      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader' },
     ],
   },
 };

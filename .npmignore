@@ -1,0 +1,11 @@
+.idea/
+node_modules/
+src/
+docker/
+__mocks__/
+__tests__/
+.eslintrc
+.gitignore
+docker-compose.yml
+webpack.config.dev.js
+webpack.config.prod.js

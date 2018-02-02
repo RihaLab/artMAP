@@ -1,22 +1,33 @@
-// @flow
-
 import path from 'path';
-import { Observable } from 'rxjs';
-import { fromScript } from './util/scriptUtil';
+import createLogger from 'debug';
+import { Observable } from 'rxjs/Rx';
+import { fromScript } from '../util';
+import filename from './pipelineOutputFilename';
 
-import type { Script, SubtractionPayload, Observable as ObservableType } from '../flowType/type';
+const log = createLogger('dna:service:subtraction');
 
-export default function subtraction(data: SubtractionPayload): ObservableType {
-  const script = createScript(data);
-  return Observable.of({ progress: 0 })
-    .concat(fromScript(script)
-      .map(info => Object({ info })))
-    .concat(Observable.of({ progress: 100 }));
-}
+const pipelineSubtraction = (data) => {
+  const modification = {
+    controlFile: path.join(data.outputDirectory, filename.snpFiltration.controlFileOutput),
+    mutatedFile: path.join(data.outputDirectory, filename.snpFiltration.mutatedFileOutput),
+    outputFilename: filename.subtraction.output,
+  };
+  const payload = Object.assign({}, data, modification);
 
-function createScript(data: SubtractionPayload): Script {
+  return subtraction(payload)
+    .concat(Observable.defer(() => payload.emitResult({ code: 0, operation: 'Subtraction' })))
+    .map(info => Object.assign(info, { operation: 'Subtraction' }))
+    .catch(err => Object.assign(err, { operation: 'Subtraction' }));
+};
+
+function subtraction(data) {
   const command = 'subtractBed';
   const output = path.join(data.outputDirectory, data.outputFilename);
   const mandatoryParams = ['-a', data.mutatedFile, '-b', data.controlFile];
-  return { command, params: mandatoryParams, output };
+  const script = { command, params: mandatoryParams, output };
+
+  return fromScript(script)
+    .do(payload => log(payload.info));
 }
+
+export default pipelineSubtraction;

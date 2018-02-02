@@ -1,25 +1,43 @@
-// @flow
-
 import path from 'path';
-import { Observable } from 'rxjs';
-import { fromScript } from './util/scriptUtil';
+import createLogger from 'debug';
+import { Observable } from 'rxjs/Rx';
+import { fromScript } from '../util';
+import filename from './pipelineOutputFilename';
 
-import type { Script, SnpFiltrationPayload, Observable as ObservableType } from '../flowType/type';
+const SNP_FILTRATION_SCRIPT = path.join(__dirname, '../../../scripts/snpsPicker.js');
+const log = createLogger('dna:service:snpFiltration');
 
-// todo rewrite with process env
+export const snpFiltrationControlFile = (data) => {
+  const modification = {
+    inputFile: path.join(data.outputDirectory, filename.snpCaller.controlFileOutput),
+    outputFilename: filename.snpFiltration.controlFileOutput,
+  };
+  const payload = Object.assign({}, data, modification);
 
-const script = path.join(__dirname, '../../../scripts/snpsPicker.js');
+  return snpFiltration(payload)
+    .concat(Observable.defer(() => payload.emitResult({ code: 0, operation: 'SNP Filtration - control file' })))
+    .map(info => Object.assign(info, { operation: 'SNP Filtration - control file' }))
+    .catch(err => Object.assign(err, { operation: 'SNP Filtration - control file' }));
+};
 
-export default function snpFiltration(data: SnpFiltrationPayload): ObservableType {
-  const filtrationScript = createScript(data);
-  return Observable.of({ progress: 0 })
-    .concat(fromScript(filtrationScript)
-      .map(info => Object({ info })))
-    .concat(Observable.of({ progress: 100 }));
-}
+export const snpFiltrationMutatedFile = (data) => {
+  const modification = {
+    inputFile: path.join(data.outputDirectory, filename.snpCaller.mutatedFileOutput),
+    outputFilename: filename.snpFiltration.mutatedFileOutput,
+  };
+  const payload = Object.assign({}, data, modification);
 
-function createScript(data: SnpFiltrationPayload): Script {
+  return snpFiltration(payload)
+    .concat(Observable.defer(() => payload.emitResult({ code: 0, operation: 'SNP Filtration - mutated file' })))
+    .map(info => Object.assign(info, { operation: 'SNP Filtration - mutated file' }))
+    .catch(err => Object.assign(err, { operation: 'SNP Filtration - mutated file' }));
+};
+
+function snpFiltration(data) {
   const output = path.join(data.outputDirectory, data.outputFilename);
   const mandatoryParams = ['-i', data.inputFile, '-o', output];
-  return { command: script, params: mandatoryParams };
+  const script = { command: SNP_FILTRATION_SCRIPT, params: mandatoryParams };
+
+  return fromScript(script)
+    .do(payload => log(payload.info));
 }

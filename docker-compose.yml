@@ -1,0 +1,11 @@
+version: '3'
+services:
+  web:
+    image: "javorka/artin-dna:next"
+    ports:
+      - "3000:3000"
+    volumes:
+      - /:/sharedFolder
+    network_mode: host
+    environment:
+      - REFERENCE_GENOME=Arabidopsis_thaliana
