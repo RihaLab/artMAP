@@ -9,7 +9,7 @@ const wizardFaceTypeOfData = ({ goToNextStep }) => (
     <Grid item xs={6}>
       <Card>
         <CardContent>
-          <Typography align="center" type="display1" gutterBottom>BP &gt; 70</Typography>
+          <Typography align="center" type="display1" gutterBottom>bp &gt; 100</Typography>
           <Typography type="body2">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam blandit auctor eros eu
             mollis. Etiam dignissim tempor velit ut pulvinar. Suspendisse ipsum velit, suscipit et
@@ -20,7 +20,7 @@ const wizardFaceTypeOfData = ({ goToNextStep }) => (
         </CardContent>
         <CenteredCardActions>
           <Button raised color="primary" onClick={() => goToNextStep({ bigBP: true })}>
-            I have data with BP &gt; 70
+            I have data with bp &gt; 100
           </Button>
         </CenteredCardActions>
       </Card>
@@ -28,7 +28,7 @@ const wizardFaceTypeOfData = ({ goToNextStep }) => (
     <Grid item xs={6}>
       <Card>
         <CardContent>
-          <Typography align="center" type="display1" gutterBottom>BP &le; 70</Typography>
+          <Typography align="center" type="display1" gutterBottom>bp &le; 100</Typography>
           <Typography type="body2">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam blandit auctor eros eu
             mollis. Etiam dignissim tempor velit ut pulvinar. Suspendisse ipsum velit, suscipit et
@@ -39,7 +39,7 @@ const wizardFaceTypeOfData = ({ goToNextStep }) => (
         </CardContent>
         <CenteredCardActions>
           <Button raised color="primary" onClick={() => goToNextStep({ bigBP: false })}>
-            I have data with BP &lt; 70
+            I have data with bp &le; 100
           </Button>
         </CenteredCardActions>
       </Card>

@@ -31,10 +31,8 @@ export const processingOperationResult = ({ operation, result }) => ({
 
 export const startProcessing = () => (dispatch, getState) => {
   const formData = getState().form.wizardDataInput.values;
-  const additionalSettingsData = getState().form.additionSettings.values;
-  additionalSettingsData.skipQualityControl = !additionalSettingsData.runQualityControl;
-  const wizardData = getState().wizard.steps;
-  const payload = Object.assign({}, formData, wizardData, additionalSettingsData);
+  const modification = { skipQualityControl: !formData.runQualityControl, runQualityControl: null };
+  const payload = Object.assign({}, formData, modification);
   socket.emit(socketChannel.pipelineStart, payload);
   dispatch({ type: GO_TO_NEXT_STEP });
   dispatch({ type: START_PROCESSING });

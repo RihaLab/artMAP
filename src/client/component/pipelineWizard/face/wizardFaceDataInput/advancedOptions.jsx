@@ -9,7 +9,7 @@ const advancedOptions = ({ pairEnd, bigBP, skipBamConversion }) => (
       <ListItemText primary={`Type of data: ${pairEnd ? 'Paired end' : 'Single end'}`} />
     </ListItem>
     <ListItem button>
-      <ListItemText primary={`Length of reads: ${bigBP ? 'BP > 70' : 'BP < 70'}`} />
+      <ListItemText primary={`Length of reads: ${bigBP ? 'bp &gt; 100' : 'bp &le; 100'}`} />
     </ListItem>
     <ListItem button>
       <ListItemText primary={`Data format: ${skipBamConversion ? 'FASTQ' : 'BAM'}`} />

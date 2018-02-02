@@ -48,7 +48,7 @@ class Summary extends Component {
                 <ListItemText primary="Run quality control" />
                 <ListItemSecondaryAction>
                   <Field
-                    name="skipQC"
+                    name="runQualityControl"
                     label="Ouuu some label"
                     component={SwitchInput}
                   />
@@ -77,7 +77,7 @@ const style = {
 const styledSummary = withStyles(style)(Summary);
 
 export default reduxForm({
-  form: 'additionSettings',
+  form: 'wizardDataInput',
   initialValues: {
     runQualityControl: true,
   },

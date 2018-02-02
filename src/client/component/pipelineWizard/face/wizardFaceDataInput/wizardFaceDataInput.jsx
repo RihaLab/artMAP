@@ -91,7 +91,4 @@ const validate = (values) => {
 export default reduxForm({
   form: 'wizardDataInput',
   validate,
-  initialValues: {
-    'skip-QC': true,
-  },
 })(wizardFaceDataInput);
