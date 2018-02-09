@@ -69,7 +69,12 @@ class VisualizationGraph extends Component {
     const options = {
       trendlines: {
         0: {
-          type: 'exponential', lineWidth: 2, opacity: 1, tooltip: false, color: 'red',
+          type: 'polynomial',
+          degree: 2,
+          lineWidth: 2,
+          opacity: 1,
+          tooltip: false,
+          color: 'red',
         },
       },
       hAxis: {
