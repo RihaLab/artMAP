@@ -3,7 +3,7 @@ import { withStyles, CardActions } from 'material-ui';
 export WizardFaceBPLength from './wizardFaceBPLength';
 export WizardFaceSkipConversion from './wizardFaceSkipConversion';
 export WizardFaceTypeOfData from './wizardFaceTypeOfData';
-export WizardFaceDataInput from './wizardFaceDataInput/wizardFaceDataInput';
+export WizardFaceDataInput from './wizardFaceDataInput/wizardFaceDataInputContainer';
 
 const styles = {
   root: {

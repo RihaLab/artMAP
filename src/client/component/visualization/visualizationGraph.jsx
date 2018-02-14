@@ -67,16 +67,6 @@ class VisualizationGraph extends Component {
     dataTable.addRows(data);
 
     const options = {
-      trendlines: {
-        0: {
-          type: 'polynomial',
-          degree: 2,
-          lineWidth: 2,
-          opacity: 1,
-          tooltip: false,
-          color: 'red',
-        },
-      },
       hAxis: {
         title: 'Gene location',
         gridlines: {
