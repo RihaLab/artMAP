@@ -4,8 +4,8 @@ import config from '../../../../config';
 
 export const getGraphData = file => async (dispatch) => {
   const url = encodeGetParams(`http://${config.host}:${config.port}/api/visualization?`, { file });
-  const fileStructure = await fetch(url).then(response => response.json());
-  dispatch(graphDataResolved(fileStructure));
+  const graphs = await fetch(url).then(response => response.json());
+  dispatch(graphDataResolved(graphs));
 };
 
 const graphDataResolved = ({ graphs }) => ({ type: GRAPH_DATA_RESOLVED, graphs });

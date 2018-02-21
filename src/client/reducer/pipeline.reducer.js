@@ -9,7 +9,8 @@ import {
 import { IN_PROGRESS } from '../action/pipeline/pipelineResultType';
 
 const defaultState = {
-  operations: {},
+  operations: [],
+  operationMap: {},
   progress: 0,
 };
 
@@ -22,21 +23,23 @@ export default function wizardReducer(state = defaultState, action) {
       return Object.assign({}, state, { progress: action.progress });
     }
     case PROCESSING_OPERATION_RESULT: {
-      const operations = Object.assign({}, state.operations);
-      operations[action.operation].result = action.result;
+      const operations = state.operations.slice(0);
+      const operationIndex = state.operationMap[action.operation];
+      operations[operationIndex].result = action.result;
       return Object.assign({}, state, { operations });
     }
     case PROCESSING_OPERATION_INFO: {
-      const operations = Object.assign({}, state.operations);
-      const operationEntry = { timestamp: action.timestamp, info: action.info };
+      const operations = state.operations.slice(0);
+      const operationMap = Object.assign({}, state.operationMap);
 
-      if (!operations[action.operation]) {
-        operations[action.operation] = {
-          log: [operationEntry],
-        };
-      } else {
-        operations[action.operation].log.push(operationEntry);
+      const logEntry = { timestamp: action.timestamp, info: action.info };
+      const operationIndex = operationMap[action.operation];
+      if (typeof operationIndex === 'undefined') {
+        const newOperation = { name: action.operation, log: [logEntry] };
+        operationMap[action.operation] = operations.push(newOperation) - 1;
+        return Object.assign({}, state, { operations }, { operationMap });
       }
+      operations[operationIndex].log.push(logEntry);
       return Object.assign({}, state, { operations });
     }
     case PROCESSING_FINISHED: {

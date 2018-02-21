@@ -3,7 +3,8 @@ import readline from 'readline';
 
 export default async function visualization(path) {
   return new Promise((resolve) => {
-    const graphs = {};
+    const graphMap = {};
+    const graphs = [];
 
     const lineReader = readline.createInterface({
       input: createReadStream(path),
@@ -12,10 +13,15 @@ export default async function visualization(path) {
     const processLine = (line) => {
       if (line[0] !== '#') {
         const parsedLine = parseLine(line);
-        if (graphs[parsedLine.chromosome]) {
-          graphs[parsedLine.chromosome].data.push(parsedLine);
+        const { chromosome } = parsedLine;
+        const graphIndex = graphMap[chromosome];
+        if (typeof graphIndex === 'undefined') {
+          graphMap[chromosome] = graphs.push({
+            chromosome,
+            data: [parsedLine],
+          }) - 1;
         } else {
-          graphs[parsedLine.chromosome] = { data: [parsedLine] };
+          graphs[graphIndex].data.push(parsedLine);
         }
       }
     };

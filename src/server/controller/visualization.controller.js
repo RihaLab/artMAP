@@ -9,9 +9,13 @@ const router = Router();
 router.get('/?', async (req, res) => {
   const file = resolvePath(normalizePath(req.query.file));
   log(`Getting graph visualization of a file ${file}`);
-  const result = await pipelineVisualization(file);
 
-  res.json({ graphs: result });
+  try {
+    const result = await pipelineVisualization(file);
+    res.json({ graphs: result });
+  } catch (err) {
+    res.error(err.toString());
+  }
 });
 
 export default router;

@@ -7,15 +7,15 @@ import ReactModal from 'react-modal';
 // eslint-disable-next-line import/extensions,import/no-unresolved,import/no-extraneous-dependencies
 import { charts } from 'charts';
 import store, { history } from './store';
-import { Pipeline } from './container';
-import { AppWrapper } from './component/appWrapper';
+import { PipelineWizard } from './container';
+import { AppWrapper } from './component';
 
 const provider = (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <AppWrapper>
         <div>
-          <Route exact path="/" component={Pipeline} />
+          <Route exact path="/" component={PipelineWizard} />
         </div>
       </AppWrapper>
     </ConnectedRouter>

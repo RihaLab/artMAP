@@ -8,7 +8,7 @@ const renameAsObservable = (src, out) =>
         if (err) {
           return err;
         }
-        return { info: 'Rename successful' };
+        return { info: `Successfully renamed ${src} to ${out}` };
       }));
 
 export default renameAsObservable;

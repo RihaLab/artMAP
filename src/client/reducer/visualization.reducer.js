@@ -1,7 +1,7 @@
 import { GRAPH_DATA_RESOLVED } from '../action/visualization/visualization.action';
 
 const defaultState = {
-  graphs: {},
+  graphs: [],
 };
 
 export default function visualizationReducer(state = defaultState, action) {
