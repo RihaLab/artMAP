@@ -10,7 +10,7 @@ export default function PipelineStepOption(props) {
         <Typography align="center" type="display1" gutterBottom>{props.title}</Typography>
         <Typography type="body2">{props.description}</Typography>
       </CardContent>
-      <CardActions>x
+      <CardActions>
         <Button raised color="primary" onClick={props.onSelect}>
           {props.actionTitle}
         </Button>

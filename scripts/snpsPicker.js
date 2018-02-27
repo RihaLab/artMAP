@@ -3,9 +3,16 @@ const readline = require('readline');
 const { createReadStream, createWriteStream, existsSync } = require('fs');
 const program = require('commander');
 
+const FREQUENCY = 30;
+const MIN_DEPTH = 10;
+const MAX_DEPTH = 100;
+
 program
-  .version('0.0.1')
+  .version('0.0.2')
   .usage('snpsPicker -i <INPUT> -o <OUTPUT>')
+  .option('-f, --frequency <NUMBER>', `Frequency threshold (in percent) for filtering SNPs. Default to ${FREQUENCY}%`)
+  .option('-d, --min-depth <NUMBER>', `Minimum (inclusive) depth filter. Default to ${MIN_DEPTH}`)
+  .option('-D, --max-depth <NUMBER>', `Maximum (inclusive) depth filter. Default to ${MAX_DEPTH}`)
   .option('-i, --input-file <INPUT>', 'File location of stored snps')
   .option('-o, --output-file <OUTPUT>', 'Destination file for processed snps')
   .parse(process.argv);
@@ -17,6 +24,22 @@ if (!program.inputFile || !program.outputFile) {
 if (!existsSync(program.inputFile)) {
   throw new Error(`ENOENT: no such file or directory, open '${program.inputFile}'`);
 }
+
+if (program.minDepth && isNaN(program.minDepth)) {
+  throw new Error(`Min depth parameter is not a number ${program.minDepth}`);
+}
+
+if (program.maxDepth && isNaN(program.maxDepth)) {
+  throw new Error(`Max depth parameter is not a number ${program.maxDepth}`);
+}
+
+if (program.frequency && isNaN(program.frequency)) {
+  throw new Error(`Frequency parameter is not a number ${program.frequency}`);
+}
+
+const minDepth = program.minDepth ? Number(program.minDepth) : MIN_DEPTH;
+const maxDepth = program.maxDepth ? Number(program.maxDepth) : MAX_DEPTH;
+const frequencyThreshold = (program.frequency ? Number(program.frequency) : FREQUENCY) / 100;
 
 const fd = createWriteStream(program.outputFile);
 
@@ -34,9 +57,9 @@ function processLine(line) {
 
     const isRelevantMutation1 = referenceAcid === 'G' && alternativeAcids.includes('A');
     const isRelevantMutation2 = referenceAcid === 'C' && alternativeAcids.includes('T');
-    const isRelevantDepth = depth >= 10 && depth <= 100;
+    const isRelevantDepth = depth >= minDepth && depth <= maxDepth;
 
-    if (frequency > 0.3 && isRelevantDepth && (isRelevantMutation1 || isRelevantMutation2)) {
+    if (frequency > frequencyThreshold && isRelevantDepth && (isRelevantMutation1 || isRelevantMutation2)) {
       fd.write(`${line}\n`);
     }
   } else {

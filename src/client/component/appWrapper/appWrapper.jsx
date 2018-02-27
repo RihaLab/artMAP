@@ -1,3 +1,4 @@
+import 'rc-slider/assets/index.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, MuiThemeProvider } from 'material-ui';

@@ -35,7 +35,13 @@ export const snpFiltrationMutatedFile = (data) => {
 
 function snpFiltration(data) {
   const output = path.join(data.outputDirectory, data.outputFilename);
-  const mandatoryParams = ['-i', data.inputFile, '-o', output];
+  const mandatoryParams = [
+    '-i', data.inputFile,
+    '-o', output,
+    '-f', data.frequencyThreshold,
+    '-d', Math.min(...data.depthFilter),
+    '-D', Math.max(...data.depthFilter),
+  ];
   const script = { command: SNP_FILTRATION_SCRIPT, params: mandatoryParams };
 
   return fromScript(script)

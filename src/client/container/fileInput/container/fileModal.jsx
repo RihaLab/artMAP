@@ -74,7 +74,7 @@ class FileModalContainer extends Component {
 
     const modalActions = (
       <div>
-        <Button color="primary" onClick={props.handleClose}>Cancel</Button>
+        <Button color="primary" onClick={() => props.onClose()}>Cancel</Button>
         <Button disabled={this.isSubmitBtnDisabled()} color="primary" onClick={this.handleClose}>
           Ok
         </Button>

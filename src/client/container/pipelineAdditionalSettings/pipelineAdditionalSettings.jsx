@@ -7,11 +7,12 @@ import {
   ListSubheader,
   ListItemText,
   ListItemSecondaryAction,
-  Divider,
   withStyles,
 } from 'material-ui';
 import { reduxForm, Field } from 'redux-form';
 import { SwitchInput } from '../../component';
+import DepthRangeInput from './component/depthRangeInput';
+import FrequencyThresholdInput from './component/frequencyThresholdInput';
 
 function PipelineAdditionalSettings(props) {
   return (
@@ -23,6 +24,19 @@ function PipelineAdditionalSettings(props) {
             <ListItemText primary="Run quality control" />
             <ListItemSecondaryAction>
               <Field
+                name="removePcrDuplicates"
+                label="Ouuu some label"
+                component={SwitchInput}
+              />
+            </ListItemSecondaryAction>
+          </ListItem>
+        </List>
+        <List>
+          <ListSubheader>PCR duplicates</ListSubheader>
+          <ListItem>
+            <ListItemText primary="Remove PCR duplicates" />
+            <ListItemSecondaryAction>
+              <Field
                 name="runQualityControl"
                 label="Ouuu some label"
                 component={SwitchInput}
@@ -30,7 +44,29 @@ function PipelineAdditionalSettings(props) {
             </ListItemSecondaryAction>
           </ListItem>
         </List>
-        <Divider />
+        <List>
+          <ListSubheader>Filter</ListSubheader>
+          <ListItem>
+            <ListItemText primary="Depth filter" />
+          </ListItem>
+          <ListItem>
+            <Field
+              name="depthFilter"
+              label="Ouuu some label"
+              component={DepthRangeInput}
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemText primary="Frequency threshold" />
+          </ListItem>
+          <ListItem>
+            <Field
+              name="frequencyThreshold"
+              label="Ouuu some label"
+              component={FrequencyThresholdInput}
+            />
+          </ListItem>
+        </List>
       </div>
     </Drawer>
   );
@@ -51,7 +87,7 @@ PipelineAdditionalSettings.defaultProps = {
 function styledPipelineAdditionalSettings(props) {
   const style = {
     list: {
-      width: 250,
+      width: 350,
     },
   };
 
@@ -63,5 +99,8 @@ export default reduxForm({
   form: 'wizardDataInput',
   initialValues: {
     runQualityControl: true,
+    removePcrDuplicates: true,
+    depthFilter: [10, 100],
+    frequencyThreshold: 30,
   },
 })(styledPipelineAdditionalSettings);

@@ -2,7 +2,7 @@ import path from 'path';
 import { Observable } from 'rxjs/Rx';
 import tmp from 'tmp';
 import createLogger from 'debug';
-import { fromScript } from '../util';
+import { fromScript, renameAsObservable } from '../util';
 import filename from './pipelineOutputFilename';
 
 const log = createLogger('dna:service:samConversion');
@@ -29,20 +29,22 @@ export const samConversionMutatedFile = (data) => {
     .concat(Observable.defer(() => payload.emitResult({ code: 0, operation: 'SAM Conversion - mutated file' })))
     .map(info => Object.assign(info, { operation: 'SAM Conversion - mutated file' }))
     .catch(err => Object.assign(err, { operation: 'SAM Conversion - mutated file' }));
-
 };
-
 
 function samConversion(data) {
   const tmpObj = tmp.dirSync({ unsafeCleanup: true, dir: data.outputDirectory });
   const tmpViewFile = path.join(tmpObj.name, 'tmp-view.bam');
+  const tmpSortFile = path.join(tmpObj.name, 'tmp-sort.bam');
   const outputFile = path.join(data.outputDirectory, data.outputFilename);
+
   const viewScript = createViewScript(data.inputFile, tmpViewFile);
-  const sortScript = createSortScript(tmpViewFile, outputFile);
+  const sortScript = createSortScript(tmpViewFile, tmpSortFile);
+  const removingDuplicates = removeDuplicatesStep(data, tmpSortFile, outputFile);
   const indexScript = createIndexScript(outputFile);
 
   return fromScript(viewScript)
     .concat(fromScript(sortScript))
+    .concat(removingDuplicates)
     .concat(fromScript(indexScript))
     .do(payload => log(payload.info))
     .finally(tmpObj.removeCallback);
@@ -58,6 +60,16 @@ function createSortScript(input, output) {
   const command = 'samtools';
   const scriptParams = ['sort'].concat('-o', output, input);
   return { command, params: scriptParams };
+}
+
+function removeDuplicatesStep(data, input, output) {
+  if (!data.removePcrDuplicates) {
+    return renameAsObservable(input, output);
+  }
+  const command = 'samtools';
+  const typeOfDataParam = data.pairEnd ? '-S' : '-s';
+  const scriptParams = ['rmdup'].concat(typeOfDataParam, input, output);
+  return fromScript({ command, params: scriptParams });
 }
 
 function createIndexScript(input) {
