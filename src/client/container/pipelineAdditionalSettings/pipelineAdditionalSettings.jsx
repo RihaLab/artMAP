@@ -24,8 +24,7 @@ function PipelineAdditionalSettings(props) {
             <ListItemText primary="Run quality control" />
             <ListItemSecondaryAction>
               <Field
-                name="removePcrDuplicates"
-                label="Ouuu some label"
+                name="runQualityControl"
                 component={SwitchInput}
               />
             </ListItemSecondaryAction>
@@ -37,8 +36,7 @@ function PipelineAdditionalSettings(props) {
             <ListItemText primary="Remove PCR duplicates" />
             <ListItemSecondaryAction>
               <Field
-                name="runQualityControl"
-                label="Ouuu some label"
+                name="removePcrDuplicates"
                 component={SwitchInput}
               />
             </ListItemSecondaryAction>

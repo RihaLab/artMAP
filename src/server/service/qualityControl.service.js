@@ -7,7 +7,7 @@ import filename from './pipelineOutputFilename';
 const log = createLogger('dna:service:qualityControl');
 
 export const qualityControlControlFile = (data) => {
-  if (data.skipQualityControl) {
+  if (!data.runQualityControl) {
     return Observable.empty();
   }
 
@@ -33,7 +33,7 @@ export const qualityControlControlFile = (data) => {
 
 
 export const qualityControlMutatedFile = (data) => {
-  if (data.skipQualityControl) {
+  if (!data.runQualityControl) {
     return Observable.empty();
   }
 

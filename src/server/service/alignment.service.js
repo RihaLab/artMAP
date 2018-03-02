@@ -13,10 +13,10 @@ export const alignmentControlFile = (data) => {
   const modification = {
     outputFilename: filename.alignment.controlFileOutput,
   };
-  if (data.skipQualityControl && data.skipBamConversion) {
+  if (!data.runQualityControl && data.skipBamConversion) {
     modification.inputFile = data.controlFile;
     modification.pairedInputFile = data.controlFileSE;
-  } else if (data.skipQualityControl && !data.skipBamConversion) {
+  } else if (!data.runQualityControl && !data.skipBamConversion) {
     modification.inputFile = path.join(data.outputDirectory, filename.bamConversion.controlFileOutput);
     modification.pairedInputFile = path.join(data.outputDirectory, filename.bamConversion.controlFileSEOutput);
   } else {
@@ -36,10 +36,10 @@ export const alignmentMutatedFile = (data) => {
     outputFilename: filename.alignment.mutatedFileOutput,
   };
 
-  if (data.skipQualityControl && data.skipBamConversion) {
+  if (!data.runQualityControl && data.skipBamConversion) {
     modification.inputFile = data.mutatedFile;
     modification.pairedInputFile = data.mutatedFileSE;
-  } else if (data.skipQualityControl && !data.skipBamConversion) {
+  } else if (!data.runQualityControl && !data.skipBamConversion) {
     modification.inputFile = path.join(data.outputDirectory, filename.bamConversion.mutatedFileOutput);
     modification.pairedInputFile = path.join(data.outputDirectory, filename.bamConversion.mutatedFileSEOutput);
   } else {

@@ -5,3 +5,4 @@ export * from './modal';
 export * from './stepper';
 export * from './submitButton';
 export * from './topPanel';
+export * from './resizer';
