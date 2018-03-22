@@ -13,9 +13,6 @@ module.exports = {
     path: path.join(__dirname, 'lib/server/public'),
     filename: 'bundle.js',
   },
-  externals: {
-    charts: 'google',
-  },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin({

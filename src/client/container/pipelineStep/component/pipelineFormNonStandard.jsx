@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm, formPropTypes } from 'redux-form';
-import { Card, CardContent, CardActions, Typography } from 'material-ui';
+import { Card, CardContent, Typography, Grid } from 'material-ui';
 import { FileInput, DirInput, TextInput, SubmitButton } from '../../../component';
+import { PipelineAdditionalSettingsButton } from '../..';
 
 function PipelineFormNonStandard({ handleSubmit, valid, submitting }) {
   const onSubmit = (e) => {
@@ -53,10 +54,15 @@ function PipelineFormNonStandard({ handleSubmit, valid, submitting }) {
             label="Output filename"
             component={TextInput}
           />
+          <Grid container>
+            <Grid item>
+              <SubmitButton disabled={!valid || submitting} />
+            </Grid>
+            <Grid item>
+              <PipelineAdditionalSettingsButton />
+            </Grid>
+          </Grid>
         </CardContent>
-        <CardActions>
-          <SubmitButton disabled={!valid || submitting} />
-        </CardActions>
       </form>
     </Card>
   );

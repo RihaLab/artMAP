@@ -6,19 +6,19 @@ import { createMuiTheme } from 'material-ui/styles';
 import { TopPanel } from '../topPanel';
 import { ErrorDialog } from '../../container';
 
-export default function AppWrapper({ children }) {
-  const theme = createMuiTheme({
-    palette: {
-      primary: {
-        main: '#76C045',
-        contrastText: '#fff',
-      },
-      secondary: {
-        main: '#EF681F',
-      },
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#76C045',
+      contrastText: '#fff',
     },
-  });
+    secondary: {
+      main: '#EF681F',
+    },
+  },
+});
 
+export default function AppWrapper({ children }) {
   return (
     <MuiThemeProvider theme={theme}>
       <Grid container direction="column" alignItems="center" spacing={0}>

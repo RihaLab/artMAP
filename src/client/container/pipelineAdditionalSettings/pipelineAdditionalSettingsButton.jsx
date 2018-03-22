@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Tooltip } from 'material-ui';
+import { IconButton, Tooltip } from 'material-ui';
 import { Settings as IconSettings } from 'material-ui-icons';
 import PipelineAdditionalSettings from './pipelineAdditionalSettings';
 
@@ -23,9 +23,9 @@ export default class PipelineAdditionalSettingsButton extends Component {
     return (
       <div>
         <Tooltip title="Additional settings">
-          <Button type="button" onClick={this.openDrawer} fab>
+          <IconButton aria-label="Additional settings" onClick={this.openDrawer}>
             <IconSettings />
-          </Button>
+          </IconButton>
         </Tooltip>
         <PipelineAdditionalSettings
           isOpen={this.state.isOpen}

@@ -6,7 +6,7 @@ import {
   PROCESSING_OPERATION_RESULT,
   START_PROCESSING,
 } from './pipeline.action';
-import { GO_TO_NEXT_STEP, GO_TO_PREV_STEP } from '../wizard/wizard.action';
+import { GO_TO_NEXT_STEP } from '../wizard/wizard.action';
 import socket from '../../socket/socket.factory';
 import { socket as socketChannel, operationResult } from '../../../../config';
 
@@ -38,8 +38,7 @@ export const startProcessing = () => (dispatch, getState) => {
   dispatch({ type: START_PROCESSING });
 };
 
-export const cancelProcessing = () => (dispatch) => {
+export const cancelProcessing = () => {
   socket.emit(socketChannel.cancelPipeline, null);
-  dispatch({ type: CANCEL_PROCESSING });
-  dispatch({ type: GO_TO_PREV_STEP });
+  return { type: CANCEL_PROCESSING };
 };

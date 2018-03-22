@@ -16,9 +16,6 @@ class PipelineResultVisualization extends Component {
     return (
       <Grid container spacing={40}>
         <Grid item xs={12}>
-          <Typography align="center" type="display1" gutterBottom>Visualization</Typography>
-        </Grid>
-        <Grid container spacing={40}>
           <GraphList graphs={this.props.graphs} />
         </Grid>
         <Grid item xs={12}>

@@ -18,16 +18,6 @@ function PipelineStepDataInput({ skipBamConversion, pairEnd, startProcessing }) 
       <Grid item xs={4}>
         <PipelineOptionsSummary />
       </Grid>
-      <Grid item xs={12}>
-        <Grid container justify="flex-end">
-          <Grid item>
-            <BackButton />
-          </Grid>
-          <Grid item>
-            <PipelineAdditionalSettingsButton />
-          </Grid>
-        </Grid>
-      </Grid>
     </Grid>
   );
 }

@@ -10,7 +10,6 @@ export default function Button({ onClick }) {
         type="button"
         onClick={onClick}
         fab
-        color="primary"
       >
         <IconBack />
       </MuiButton>

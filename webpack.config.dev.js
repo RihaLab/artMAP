@@ -18,9 +18,6 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  externals: {
-    charts: 'google',
-  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),

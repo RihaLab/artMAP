@@ -1,4 +1,5 @@
 export * from './backButton';
+export * from './nextStepButton';
 export * from './errorDialog';
 export * from './fileInput';
 export * from './pipelineAdditionalSettings';

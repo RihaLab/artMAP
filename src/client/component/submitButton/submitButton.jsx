@@ -8,6 +8,7 @@ export default function SubmitButton({ disabled }) {
       type="submit"
       disabled={disabled}
       raised
+      size="large"
       color="primary"
     >
       Submit

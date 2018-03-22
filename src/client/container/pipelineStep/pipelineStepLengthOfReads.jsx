@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { goToNextStep as goToNextStepAction } from '../../action';
-import { BackButton } from '..';
 import PipelineStepOption from './component/pipelineStepOption';
 import PipelineStepOptionList from './component/pipelineStepOptionList';
 
@@ -26,7 +25,6 @@ function PipelineStepLengthOfReads({ goToNextStep }) {
     <PipelineStepOptionList
       firstOption={FirstOption}
       secondOption={SecondOption}
-      actions={<BackButton />}
     />
   );
 }

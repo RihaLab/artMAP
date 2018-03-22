@@ -1,16 +1,60 @@
-.graph-tooltip {
-  padding: 5px
+.chromosome {
+  stroke: black;
+  stroke-width: 2;
+  fill: white;
 }
 
-.graph-tooltip__header {
-  font-size: medium;
-  font-style: italic;
-  font-weight: bold;
-  padding-left: 5px;
+.selection {
+  fill: green;
+  stroke-width: 2;
+  stroke: green;
+  opacity: 0.2;
 }
 
-.graph-tooltip__list {
-  list-style: none;
-  margin-left: 0;
-  padding-left: 5px;
+.grid {
+  stroke: black;
+  stroke-opacity: 0.1;
+  shape-rendering: crispEdges;
+}
+
+.point {
+  stroke-width: 10;
+  stroke-opacity: 0;
+  stroke: green;
+  fill: green;
+  opacity: 0.4;
+}
+
+.point--focus {
+  stroke-width: 5;
+  stroke-opacity: 0.6;
+  stroke: #ff6104;
+  fill: #ff6104;
+  opacity: 0.8;
+}
+
+.chromosome-overlay {
+  fill: green;
+  stroke-width: 2;
+  stroke: green;
+  opacity: 0.2;
+}
+
+.graph-title {
+  fill: black;
+  opacity: 0.54;
+}
+
+.tick {
+  fill: black;
+  opacity: 0.54;
+  font-size: 0.75rem;
+  font-weight: 400;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  line-height: 1.375em;
+}
+
+.axis-label {
+  fill: black;
+  opacity: 0.87
 }

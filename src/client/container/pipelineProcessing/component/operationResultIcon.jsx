@@ -1,6 +1,6 @@
 import React from 'react';
+import { CircularProgress } from 'material-ui';
 import {
-  MoreHoriz as IconInProgress,
   Warning as IconError,
   Done as IconSuccess,
 } from 'material-ui-icons';
@@ -9,7 +9,7 @@ import { operationResult } from '../../../../../config';
 
 export default function OperationResultIcon({ result }) {
   if (!result) {
-    return <IconInProgress />;
+    return <CircularProgress color="inherit" size={24} />;
   }
   if (result === operationResult.OK) {
     return <IconSuccess />;

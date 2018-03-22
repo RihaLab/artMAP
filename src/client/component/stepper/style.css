@@ -1,0 +1,7 @@
+.icon-container--accessible > svg {
+  fill: #76C045
+}
+
+.icon-container--current > svg {
+  fill: #EF681F
+}

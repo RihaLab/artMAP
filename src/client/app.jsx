@@ -4,8 +4,6 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import { Route } from 'react-router';
 import ReactModal from 'react-modal';
-// eslint-disable-next-line import/extensions,import/no-unresolved,import/no-extraneous-dependencies
-import { charts } from 'charts';
 import store, { history } from './store';
 import { PipelineWizard } from './container';
 import { AppWrapper } from './component';
@@ -23,6 +21,5 @@ const provider = (
 );
 
 ReactModal.setAppElement('#root');
+render(provider, document.getElementById('root'));
 
-charts.load('current', { packages: ['corechart'] });
-charts.setOnLoadCallback(() => render(provider, document.getElementById('root')));

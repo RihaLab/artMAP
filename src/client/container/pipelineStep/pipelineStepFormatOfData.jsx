@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { BackButton } from '..';
 import { goToNextStep as goToNextStepAction } from '../../action';
 import PipelineStepOption from './component/pipelineStepOption';
 import PipelineStepOptionList from './component/pipelineStepOptionList';
@@ -26,7 +25,6 @@ function PipelineStepFormatOfData({ goToNextStep }) {
     <PipelineStepOptionList
       firstOption={FirstOption}
       secondOption={SecondOption}
-      actions={<BackButton />}
     />
   );
 }

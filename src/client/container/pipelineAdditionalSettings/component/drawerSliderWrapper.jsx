@@ -2,6 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui';
 
+const styles = {
+  root: {
+    width: '100%',
+    paddingBottom: '30px',
+    marginTop: '-10px',
+    overflow: 'hidden',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  sliderWrapper: {
+    width: '85%',
+  },
+};
+
 function DrawerSliderWrapper({ children, classes }) {
   return (
     <div className={classes.root}>
@@ -18,21 +32,4 @@ DrawerSliderWrapper.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default function (props) {
-  const styles = {
-    root: {
-      width: '100%',
-      paddingBottom: '30px',
-      marginTop: '-10px',
-      overflow: 'hidden',
-      display: 'flex',
-      justifyContent: 'center',
-    },
-    sliderWrapper: {
-      width: '85%',
-    },
-  };
-
-  const StyledDraweSliderWrapper = withStyles(styles)(DrawerSliderWrapper);
-  return <StyledDraweSliderWrapper {...props} />;
-}
+export default withStyles(styles)(DrawerSliderWrapper);
