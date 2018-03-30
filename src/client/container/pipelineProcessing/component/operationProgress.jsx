@@ -1,17 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Typography, Tooltip, LinearProgress, IconButton } from 'material-ui';
-import { Cancel as IconCancel } from 'material-ui-icons';
+import { Grid, Typography, Tooltip, LinearProgress } from 'material-ui';
+import OperationCancelButton from './operationCancelButton';
 
-export default function OperationProgress({ progress, cancelProcessing }) {
-  const CancelButton = () => (
-    <Tooltip title="Cancel processing">
-      <IconButton color="accent" aria-label="Cancel processing" onClick={cancelProcessing}>
-        <IconCancel />
-      </IconButton>
-    </Tooltip>
-  );
-
+export default function OperationProgress({ progress }) {
   return (
     <Grid item xs={12}>
       <Grid container alignItems="center">
@@ -26,7 +18,7 @@ export default function OperationProgress({ progress, cancelProcessing }) {
           </Tooltip>
         </Grid>
         <Grid item xs={1}>
-          <CancelButton />
+          <OperationCancelButton />
         </Grid>
       </Grid>
     </Grid>
@@ -35,5 +27,4 @@ export default function OperationProgress({ progress, cancelProcessing }) {
 
 OperationProgress.propTypes = {
   progress: PropTypes.number.isRequired,
-  cancelProcessing: PropTypes.func.isRequired,
 };

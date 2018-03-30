@@ -5,7 +5,11 @@ import { Card, CardContent, Typography, Grid } from 'material-ui';
 import { FileInput, DirInput, TextInput, SubmitButton } from '../../../component';
 import { PipelineAdditionalSettingsButton } from '../..';
 
-function PipelineFormNonStandard({ handleSubmit, valid, submitting }) {
+function PipelineFormNonStandard(props) {
+  const {
+    handleSubmit, valid, submitting, disabled,
+  } = props;
+
   const onSubmit = (e) => {
     e.preventDefault();
     handleSubmit();
@@ -56,7 +60,7 @@ function PipelineFormNonStandard({ handleSubmit, valid, submitting }) {
           />
           <Grid container>
             <Grid item>
-              <SubmitButton disabled={!valid || submitting} />
+              <SubmitButton disabled={!valid || submitting || disabled} />
             </Grid>
             <Grid item>
               <PipelineAdditionalSettingsButton />

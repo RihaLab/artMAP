@@ -101,4 +101,6 @@ export default reduxForm({
     depthFilter: [10, 100],
     frequencyThreshold: 30,
   },
+  destroyOnUnmount: false,
+  forceUnregisterOnUnmount: false,
 })(styledPipelineAdditionalSettings);

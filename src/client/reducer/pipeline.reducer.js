@@ -6,9 +6,10 @@ import {
   START_PROCESSING,
   CANCEL_PROCESSING,
 } from '../action/pipeline/pipeline.action';
-import { IN_PROGRESS } from '../action/pipeline/pipelineResultType';
+import { IN_PROGRESS, NOT_STARTED } from '../action/pipeline/pipelineResultType';
 
 const defaultState = {
+  pipelineState: NOT_STARTED,
   operations: [],
   operationMap: {},
   progress: 0,

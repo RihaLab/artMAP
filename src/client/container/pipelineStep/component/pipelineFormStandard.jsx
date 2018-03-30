@@ -1,12 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Field, reduxForm, formPropTypes } from 'redux-form';
 import { Card, CardContent, Typography, Grid } from 'material-ui';
 import { FileInput, DirInput, TextInput, SubmitButton } from '../../../component';
 import { PipelineAdditionalSettingsButton } from '../..';
 import FormActions from './pipelineFormActions';
 
-function PipelineFormStandard({ handleSubmit, valid, submitting }) {
+function PipelineFormStandard(props) {
+  const {
+    handleSubmit, valid, submitting, isDisabled,
+  } = props;
+
+
   const onSubmit = (e) => {
     e.preventDefault();
     handleSubmit();
@@ -46,7 +52,7 @@ function PipelineFormStandard({ handleSubmit, valid, submitting }) {
 
           <FormActions container alignItems="center" justify="space-between">
             <Grid item>
-              <SubmitButton disabled={!valid || submitting} />
+              <SubmitButton disabled={!valid || submitting || isDisabled} />
             </Grid>
             <Grid item>
               <PipelineAdditionalSettingsButton />
@@ -71,7 +77,19 @@ function validate(values) {
   return errors;
 }
 
-export default reduxForm({
+const reduxPipelineFormStandard = reduxForm({
   form: 'wizardDataInput',
   validate,
+  destroyOnUnmount: false,
+  forceUnregisterOnUnmount: false,
 })(PipelineFormStandard);
+
+function mapStateToProps(state) {
+  if (!state.form.wizardDataInput) {
+    return Object();
+  }
+  return Object();
+  // return { initialValues: state.form.wizardDataInput.values };
+}
+
+export default connect(mapStateToProps, {})(reduxPipelineFormStandard);
