@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Field, reduxForm, formPropTypes } from 'redux-form';
 import { Card, CardContent, Typography, Grid } from 'material-ui';
 import { FileInput, DirInput, TextInput, SubmitButton } from '../../../component';
@@ -10,14 +11,9 @@ function PipelineFormNonStandard(props) {
     handleSubmit, valid, submitting, disabled,
   } = props;
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    handleSubmit();
-  };
-
   return (
     <Card>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         <CardContent>
           <Typography align="center" type="display1" gutterBottom>
             Input data
@@ -85,7 +81,13 @@ function validate(values) {
   return errors;
 }
 
-export default reduxForm({
+const reduxPipelineFormNonStandard = reduxForm({
   form: 'wizardDataInput',
   validate,
 })(PipelineFormNonStandard);
+
+function mapStateToProps(state) {
+  return { initialValues: state.pipeline.options };
+}
+
+export default connect(mapStateToProps, {})(reduxPipelineFormNonStandard);

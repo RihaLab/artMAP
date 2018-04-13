@@ -13,6 +13,5 @@ export default function errorReducer(state = defaultState, action) {
     default:
       return state;
   }
-
 }
 

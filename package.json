@@ -13,7 +13,7 @@
     "build:server": "babel src/server -d lib/server --source-maps",
     "build:client": "webpack --config webpack.config.prod.js",
     "clean": "rimraf lib",
-    "lint": "eslint src/**"
+    "lint": "eslint src/** --fix"
   },
   "main": "dist/app.js",
   "preferGlobal": true,

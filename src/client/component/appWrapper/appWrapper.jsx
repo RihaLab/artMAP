@@ -7,19 +7,19 @@ import { TopPanel } from '../topPanel';
 import { ErrorDialog } from '../../container';
 import './style.css';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#76C045',
-      contrastText: '#fff',
-    },
-    secondary: {
-      main: '#EF681F',
-    },
-  },
-});
-
 export default function AppWrapper({ children }) {
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#76C045',
+        contrastText: '#fff',
+      },
+      secondary: {
+        main: '#EF681F',
+      },
+    },
+  });
+
   return (
     <MuiThemeProvider theme={theme} >
       <div className="wrapper">

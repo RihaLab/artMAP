@@ -1,4 +1,9 @@
-import { GO_TO_PREV_STEP, GO_TO_NEXT_STEP, GO_TO_STEP } from '../action/wizard/wizard.action';
+import {
+  GO_TO_PREV_STEP,
+  GO_TO_NEXT_STEP,
+  GO_TO_STEP,
+  RESTART_WIZARD,
+} from '../action/wizard/wizard.action';
 import { CANCEL_PROCESSING } from '../action/pipeline/pipeline.action';
 
 const defaultState = {
@@ -21,6 +26,7 @@ export default function wizardReducer(state = defaultState, action) {
     case GO_TO_STEP: {
       return Object.assign({}, state, { currentStep: action.step });
     }
+    case RESTART_WIZARD:
     case CANCEL_PROCESSING: {
       return defaultState;
     }

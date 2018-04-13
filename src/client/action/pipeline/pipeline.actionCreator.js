@@ -29,13 +29,12 @@ export const processingOperationResult = ({ operation, result }) => ({
   type: PROCESSING_OPERATION_RESULT, result, operation,
 });
 
-export const startProcessing = () => (dispatch, getState) => {
-  const formData = getState().form.wizardDataInput.values;
+export const startProcessing = data => (dispatch, getState) => {
   const options = getState().wizard.steps;
-  const payload = Object.assign({}, formData, options);
+  const payload = Object.assign({}, data, options);
   socket.emit(socketChannel.pipelineStart, payload);
   dispatch({ type: GO_TO_NEXT_STEP });
-  dispatch({ type: START_PROCESSING });
+  dispatch({ type: START_PROCESSING, payload });
 };
 
 export const cancelProcessing = () => {

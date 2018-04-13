@@ -41,6 +41,7 @@ export default function Stepper(props) {
 }
 
 Stepper.propTypes = {
+  /* eslint-disable react/no-unused-prop-types */
   currentStep: PropTypes.number.isRequired,
   filledSteps: PropTypes.number.isRequired,
   steps: PropTypes.arrayOf(PropTypes.shape({

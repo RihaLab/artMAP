@@ -7,6 +7,7 @@ import {
   CANCEL_PROCESSING,
 } from '../action/pipeline/pipeline.action';
 import { IN_PROGRESS, NOT_STARTED } from '../action/pipeline/pipelineResultType';
+import { RESTART_WIZARD } from '../action/wizard/wizard.action';
 
 const defaultState = {
   pipelineState: NOT_STARTED,
@@ -18,7 +19,7 @@ const defaultState = {
 export default function wizardReducer(state = defaultState, action) {
   switch (action.type) {
     case START_PROCESSING: {
-      return Object.assign({}, state, { pipelineState: IN_PROGRESS });
+      return Object.assign({}, state, { pipelineState: IN_PROGRESS, options: action.payload });
     }
     case PROCESSING_PROGRESS: {
       return Object.assign({}, state, { progress: action.progress });
@@ -46,7 +47,8 @@ export default function wizardReducer(state = defaultState, action) {
     case PROCESSING_FINISHED: {
       return Object.assign({}, state, { result: action.result, file: action.file });
     }
-    case CANCEL_PROCESSING: {
+    case CANCEL_PROCESSING:
+    case RESTART_WIZARD: {
       return defaultState;
     }
     default:

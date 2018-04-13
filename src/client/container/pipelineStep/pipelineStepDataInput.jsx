@@ -15,7 +15,7 @@ function PipelineStepDataInput(props) {
   return (
     <Grid container spacing={40}>
       <Grid item xs={8}>
-        <DataInputComponent handleSubmit={props.startProcessing} isDisabled={isFormDisabled} />
+        <DataInputComponent onSubmit={props.startProcessing} isDisabled={isFormDisabled} />
       </Grid>
       <Grid item xs={4}>
         <PipelineOptionsSummary />

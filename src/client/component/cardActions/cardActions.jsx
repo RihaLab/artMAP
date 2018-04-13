@@ -1,5 +1,4 @@
-import React from 'react';
-import { CardActions as CardActionsMui, withStyles } from 'material-ui';
+import { CardActions, withStyles } from 'material-ui';
 
 const styles = {
   root: {
@@ -8,8 +7,5 @@ const styles = {
   },
 };
 
-export default function CardActions(props) {
-  const StyledCardActions = withStyles(styles)(CardActionsMui);
-  return <StyledCardActions {...props} />;
-}
+export default withStyles(styles)(CardActions);
 

@@ -12,15 +12,9 @@ function PipelineFormStandard(props) {
     handleSubmit, valid, submitting, isDisabled,
   } = props;
 
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    handleSubmit();
-  };
-
   return (
     <Card>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         <CardContent>
           <Typography align="center" type="display1" gutterBottom>
             Input data
@@ -80,16 +74,10 @@ function validate(values) {
 const reduxPipelineFormStandard = reduxForm({
   form: 'wizardDataInput',
   validate,
-  destroyOnUnmount: false,
-  forceUnregisterOnUnmount: false,
 })(PipelineFormStandard);
 
 function mapStateToProps(state) {
-  if (!state.form.wizardDataInput) {
-    return Object();
-  }
-  return Object();
-  // return { initialValues: state.form.wizardDataInput.values };
+  return { initialValues: state.pipeline.options };
 }
 
 export default connect(mapStateToProps, {})(reduxPipelineFormStandard);
