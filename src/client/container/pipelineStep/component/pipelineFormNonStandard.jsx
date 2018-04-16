@@ -5,10 +5,11 @@ import { Field, reduxForm, formPropTypes } from 'redux-form';
 import { Card, CardContent, Typography, Grid } from 'material-ui';
 import { FileInput, DirInput, TextInput, SubmitButton } from '../../../component';
 import { PipelineAdditionalSettingsButton } from '../..';
+import FormActions from './pipelineFormActions';
 
 function PipelineFormNonStandard(props) {
   const {
-    handleSubmit, valid, submitting, disabled,
+    handleSubmit, valid, submitting, isDisabled,
   } = props;
 
   return (
@@ -54,14 +55,14 @@ function PipelineFormNonStandard(props) {
             label="Output filename"
             component={TextInput}
           />
-          <Grid container>
+          <FormActions container alignItems="center" justify="space-between">
             <Grid item>
-              <SubmitButton disabled={!valid || submitting || disabled} />
+              <SubmitButton disabled={!valid || submitting || isDisabled} />
             </Grid>
             <Grid item>
               <PipelineAdditionalSettingsButton />
             </Grid>
-          </Grid>
+          </FormActions>
         </CardContent>
       </form>
     </Card>

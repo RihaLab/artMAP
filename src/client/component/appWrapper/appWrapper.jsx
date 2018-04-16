@@ -6,6 +6,8 @@ import { createMuiTheme } from 'material-ui/styles';
 import { TopPanel } from '../topPanel';
 import { ErrorDialog } from '../../container';
 import './style.css';
+import ceitecLogo from './logo/ceitec_logo.png';
+import artinLogo from './logo/artin_logo.png';
 
 export default function AppWrapper({ children }) {
   const theme = createMuiTheme({
@@ -34,9 +36,8 @@ export default function AppWrapper({ children }) {
         </Grid>
       </div>
       <div className="footer">
-        <img className="footer-logo" alt="Artin logo" src="https://www.artin.cz/wp-content/themes/artin/web/img/logo.png" />
-        <img className="footer-logo" alt="Ceitec logo" src="https://www.ctt.muni.cz/media/ImageGen.ashx?constrain=true&image=/media/3184989/ceitec.jpg" />
-        <img className="footer-logo" alt="MUNI logo" src="https://scienceslam.muni.cz/images/design/mu_logo.png" />
+        <img className="footer-logo" alt="Artin logo" src={artinLogo} />
+        <img className="footer-logo" alt="Ceitec logo" src={ceitecLogo} />
       </div>
     </MuiThemeProvider>
   );
