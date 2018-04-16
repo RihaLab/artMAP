@@ -1,3 +1,5 @@
+import './style.css';
+
 export BAMFile from './bamFile';
 export FASTQFile from './fastqFile';
 export LongRead from './longRead';

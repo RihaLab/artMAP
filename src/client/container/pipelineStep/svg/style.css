@@ -1,0 +1,22 @@
+.svg-header {
+    font-family: Roboto, serif;
+    font-size: 28px;
+    opacity: 0.87;
+    text-anchor: end;
+}
+
+.svg-text {
+    font-family: Roboto, serif;
+    font-size: 22px;
+    opacity: 0.87;
+}
+
+.svg-image {
+    fill-opacity: 0;
+    stroke: #76C045;
+    stroke-width: 10px;
+}
+
+.svg-read {
+    fill: #EF681F;
+}
