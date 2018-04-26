@@ -5,7 +5,7 @@ import GraphDataProps from '../../../propTypes/graphData';
 export default function GraphTooltip(props) {
   return (
     <Paper>
-      <Typography align="center" type="headline" gutterBottom>Summary</Typography>
+      <Typography align="center" type="headline" gutterBottom>{props.geneName}: Annotation detail</Typography>
       <Table>
         <TableBody>
           <TableRow>
