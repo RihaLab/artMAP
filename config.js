@@ -1,6 +1,6 @@
 module.exports = {
   port: 3000,
-  host: 'localhost',
+  host: '0.0.0.0',
   socket: {
     pipelineStart: 'pipeline-start',
     pipelineResult: 'pipeline-result',

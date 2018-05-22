@@ -5,7 +5,7 @@ export default function TopPanel() {
   return (
     <AppBar>
       <Toolbar>
-        <Typography color="inherit" type="title">AraMAP</Typography>
+        <Typography color="inherit" type="title">artMAP</Typography>
       </Toolbar>
     </AppBar>
   );
