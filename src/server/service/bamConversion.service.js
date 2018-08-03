@@ -18,6 +18,19 @@ export const bamConversionControlFile = (data) => {
   };
 
   const payload = Object.assign({}, data, modification);
+
+  if (data.controlFileSE && data.mutatedFileSE && data.pairEnd) {
+    const pairedPayload = Object.assign({}, data, {
+      inputFile: data.controlFileSE,
+      outputFilename: filename.bamConversion.controlFileSEOutput,
+    });
+
+    return bamConversion(Object.assign({}, payload, { secondNameOutputFilename: null }))
+      .merge(bamConversion(pairedPayload))
+      .concat(Observable.defer(() => payload.emitResult({ code: 0, operation: 'BAM Conversion - control file' })))
+      .map(info => Object.assign(info, { operation: 'BAM Conversion - control file' }))
+      .catch(err => Object.assign(err, { operation: 'BAM Conversion - control file' }));
+  }
   return bamConversion(payload)
     .concat(Observable.defer(() => payload.emitResult({ code: 0, operation: 'BAM Conversion - control file' })))
     .map(info => Object.assign(info, { operation: 'BAM Conversion - control file' }))
@@ -36,6 +49,20 @@ export const bamConversionMutatedFile = (data) => {
   };
 
   const payload = Object.assign({}, data, modification);
+
+  if (data.controlFileSE && data.mutatedFileSE && data.pairEnd) {
+    const pairedPayload = Object.assign({}, data, {
+      inputFile: data.mutatedFileSE,
+      outputFilename: filename.bamConversion.mutatedFileSEOutput,
+    });
+
+    return bamConversion(Object.assign({}, payload, { secondNameOutputFilename: null }))
+      .merge(bamConversion(pairedPayload))
+      .concat(Observable.defer(() => payload.emitResult({ code: 0, operation: 'BAM Conversion - control file' })))
+      .map(info => Object.assign(info, { operation: 'BAM Conversion - control file' }))
+      .catch(err => Object.assign(err, { operation: 'BAM Conversion - control file' }));
+  }
+
   return bamConversion(payload)
     .concat(Observable.defer(() => payload.emitResult({ code: 0, operation: 'BAM Conversion - mutated file' })))
     .map(info => Object.assign(info, { operation: 'BAM Conversion - mutated file' }))

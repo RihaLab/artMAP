@@ -5,12 +5,19 @@ import { Grid } from 'material-ui';
 import { IN_PROGRESS } from '../../action/pipeline/pipelineResultType';
 import PipelineFormStandard from './component/pipelineFormStandard';
 import PipelineFormNonStandard from './component/pipelineFormNonStandard';
+import PipelineFormBAMNonStandard from './component/pipelineFormBAMNonStandard';
 import { PipelineOptionsSummary } from '..';
 import { startProcessing as startProcessingAction } from '../../action';
 
 function PipelineStepDataInput(props) {
-  const DataInputComponent = props.skipBamConversion && props.pairEnd ?
-    PipelineFormNonStandard : PipelineFormStandard;
+  let DataInputComponent;
+  if (!props.pairEnd) {
+    DataInputComponent = PipelineFormStandard;
+  } else if (props.skipBamConversion) {
+    DataInputComponent = PipelineFormNonStandard;
+  } else {
+    DataInputComponent = PipelineFormBAMNonStandard;
+  }
   const isFormDisabled = props.pipelineState === IN_PROGRESS;
   return (
     <Grid container spacing={40}>
