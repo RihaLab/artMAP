@@ -1,6 +1,6 @@
 {
   "name": "artin-dna",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "Application for parsing dna",
   "bin": {
     "artin-dna": "lib/server/app.js"
