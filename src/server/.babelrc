@@ -1,7 +1,10 @@
 {
-  "presets": ["env"],
+  "presets": [
+    "env"
+  ],
   "plugins": [
     "transform-export-extensions",
+    "transform-object-rest-spread",
     "syntax-async-functions"
   ]
 }
