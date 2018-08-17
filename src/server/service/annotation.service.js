@@ -6,6 +6,7 @@ import filename from './pipelineOutputFilename';
 
 const { REFERENCE_GENOME } = process.env;
 const log = createLogger('dna:service:annotation');
+const SNP_FILTRATION_SCRIPT = path.join(__dirname, '../../../scripts/snpsPicker.js');
 
 const pipelineAnnotation = (data) => {
   const modification = {
@@ -21,6 +22,7 @@ const pipelineAnnotation = (data) => {
 function annotation(data) {
   const script = createScript(data);
   return fromScript(script)
+    .concat(generateConciseOutput(data))
     .concat(renameGeneratedFiles(data))
     .do(payload => log(payload.info));
 }
@@ -34,10 +36,20 @@ function createScript(data) {
   };
 }
 
+function generateConciseOutput(data) {
+  const mandatoryParams = [
+    '-i', path.format({ dir: data.outputDirectory, name: 'snpEff_genes', ext: '.txt' }),
+    '-o', path.format({ dir: data.outputDirectory, name: `${data.outputFilename}`, ext: '.txt' }),
+    '-F', data.frequencyThreshold,
+  ];
+  const script = { command: SNP_FILTRATION_SCRIPT, params: mandatoryParams };
+  return fromScript(script);
+}
+
 function renameGeneratedFiles(data) {
   const generatedFilenames = [
     { name: 'snpEff_summary', ext: '.html' },
-    { name: 'snpEff_genes', ext: '.txt' },
+    // { name: 'snpEff_genes', ext: '.txt' },
   ];
 
   return Observable.merge(...generatedFilenames.map((generatedFilename) => {

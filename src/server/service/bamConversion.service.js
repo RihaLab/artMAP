@@ -45,7 +45,7 @@ export const bamConversionMutatedFile = (data) => {
   const modification = {
     inputFile: data.mutatedFile,
     outputFilename: filename.bamConversion.mutatedFileOutput,
-    secondNameOutputFilename: filename.bamConversion.mutatedFileOutput,
+    secondNameOutputFilename: filename.bamConversion.mutatedFileSEOutput,
   };
 
   const payload = Object.assign({}, data, modification);
@@ -58,9 +58,9 @@ export const bamConversionMutatedFile = (data) => {
 
     return bamConversion(Object.assign({}, payload, { secondNameOutputFilename: null }))
       .merge(bamConversion(pairedPayload))
-      .concat(Observable.defer(() => payload.emitResult({ code: 0, operation: 'BAM Conversion - control file' })))
-      .map(info => Object.assign(info, { operation: 'BAM Conversion - control file' }))
-      .catch(err => Object.assign(err, { operation: 'BAM Conversion - control file' }));
+      .concat(Observable.defer(() => payload.emitResult({ code: 0, operation: 'BAM Conversion - mutated file' })))
+      .map(info => Object.assign(info, { operation: 'BAM Conversion - mutated file' }))
+      .catch(err => Object.assign(err, { operation: 'BAM Conversion - mutated file' }));
   }
 
   return bamConversion(payload)
