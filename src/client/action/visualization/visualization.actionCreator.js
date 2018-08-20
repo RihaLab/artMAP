@@ -4,7 +4,7 @@ import config from '../../../../config';
 
 // eslint-disable-next-line import/prefer-default-export
 export const getGraphData = file => async (dispatch) => {
-  const url = encodeGetParams(`http://${config.host}:${config.port}/api/visualization?`, { file });
+  const url = encodeGetParams(`http://localhost:${config.port}/api/visualization?`, { file });
   const graphs = await fetch(url).then(response => response.json());
   dispatch(graphDataResolved(graphs));
 };

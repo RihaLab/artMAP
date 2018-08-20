@@ -4,7 +4,7 @@ import config from '../../../../config';
 
 export function openDirectory(path) {
   return async (dispatch) => {
-    const url = encodeGetParams(`http://${config.host}:${config.port}/api/file?`, { path });
+    const url = encodeGetParams(`http://localhsot:${config.port}/api/file?`, { path });
     const fileStructure = await fetch(url).then(response => response.json());
     dispatch(directoryStructureResolved(fileStructure));
   };
