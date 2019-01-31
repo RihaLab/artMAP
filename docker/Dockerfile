@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3
+FROM continuumio/miniconda3:4.3.27
 MAINTAINER Peter Javorka <peter.javorka@artin.cz>
 RUN echo "Installing bioconda"
 
